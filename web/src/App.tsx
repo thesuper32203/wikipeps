@@ -7,18 +7,33 @@ import AdminLayout from './pages/admin/AdminLayout.tsx';
 import PeptideListPage from './pages/admin/PeptideListPage.tsx';
 import PeptideFormPage from './pages/admin/PeptideFormPage.tsx';
 
+// Minimal nav wrapper for detail pages (peptide, 404)
 function PublicLayout() {
   return (
-    <>
-      <header style={{ borderBottom: '1px solid #e0e0e0', marginBottom: '1.5rem', paddingBottom: '0.75rem' }}>
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <h1 style={{ margin: 0, fontSize: '1.5rem' }}>WikiPeps</h1>
+    <div style={{ minHeight: '100vh', background: '#0d1117' }}>
+      <nav style={{
+        borderBottom: '1px solid #21262d',
+        padding: '0 1.5rem',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.75rem',
+        height: '52px',
+      }}>
+        <Link
+          to="/"
+          style={{ fontFamily: '"Instrument Serif", serif', fontSize: '1.2rem', color: '#e6edf3', textDecoration: 'none', letterSpacing: '-0.01em' }}
+        >
+          WikiPeps
         </Link>
-      </header>
-      <main>
+        <span style={{ color: '#30363d', fontSize: '1rem' }}>›</span>
+        <span style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.825rem', color: '#4b5563' }}>
+          Compound Library
+        </span>
+      </nav>
+      <main style={{ maxWidth: '860px', margin: '0 auto', padding: '2.5rem 1.5rem 4rem' }}>
         <Outlet />
       </main>
-    </>
+    </div>
   );
 }
 
@@ -26,11 +41,13 @@ export default function App() {
   return (
     <AuthProvider>
       <Routes>
-        {/* Public site */}
+        {/* Homepage — full-width, no nav wrapper */}
+        <Route path="/" element={<HomePage />} />
+
+        {/* Detail pages — dark nav wrapper */}
         <Route element={<PublicLayout />}>
-          <Route path="/" element={<HomePage />} />
           <Route path="/peptides/:slug" element={<PeptidePage />} />
-          <Route path="*" element={<p>Page not found.</p>} />
+          <Route path="*" element={<p style={{ fontFamily: '"DM Sans", sans-serif', color: '#8b949e' }}>Page not found.</p>} />
         </Route>
 
         {/* Admin */}

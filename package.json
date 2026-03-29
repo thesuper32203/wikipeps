@@ -1,0 +1,5 @@
+{
+    "name": "wikipeps",
+    "private": true,
+    "workspaces": ["web", "mobile", "shared"]
+  }

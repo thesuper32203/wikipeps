@@ -66,34 +66,69 @@ Every peptide uses the same template. The slug is the only variable.
 - **Web** (React Router v6): Route `/peptides/:slug` → `web/src/pages/PeptidePage.tsx` → `useParams()` → Supabase query
 - **Mobile** (Expo Router): File `mobile/app/peptide/[slug].tsx` → `useLocalSearchParams()` → same query
 
-Both run: `supabase.from('peptides').select('*').eq('slug', slug).single()`
+Fetch a full peptide with related data:
+```ts
+supabase
+  .from('peptide')
+  .select('*, peptide_aliases(*), peptide_research_links(*), vendor_links(*)')
+  .eq('slug', slug)
+  .single()
+```
 
-Centralize this in `shared/queries/peptides.ts` typed wrapper functions to avoid duplicating JSONB casts across both apps.
+Centralize this in `shared/queries/peptides.ts` typed wrapper functions.
 
 ### Authentication
-Supabase Auth. RLS policy on `peptides` table: public can SELECT `is_published = true` rows; admin role (JWT claim) can INSERT/UPDATE/DELETE.
+Supabase Auth. RLS policies:
+- `peptide`: public SELECT where `is_published = true`; admins full access
+- `peptide_aliases`, `peptide_research_links`, `vendor_links`: public SELECT via join to a published peptide; admins full access
+
+Admin role is granted via JWT claim `role = 'admin'`.
 
 ## Database Schema
 
-Core table: `public.peptides`
+### `public.peptide`
 
 | Column | Type | Notes |
 |---|---|---|
-| slug | text | Unique URL key (e.g. `bpc-157`) |
-| name | text | Display name (e.g. `BPC-157`) |
-| aliases | text[] | Alternate names |
+| id | uuid | PK (gen_random_uuid()) |
+| slug | varchar(255) | Unique URL key (e.g. `bpc-157`) |
+| name | varchar(255) | Display name (e.g. `BPC-157`) |
 | overview | text | Markdown intro |
-| mechanism_of_action | text | Markdown |
-| clinical_effects | jsonb | `{effect, evidence_level, notes}[]` |
-| anecdotal_effects | jsonb | `{effect, source, notes}[]` |
-| administration_routes | jsonb | `{route, typical_dose, frequency, notes}[]` |
-| research_links | jsonb | `{title, url, doi, year}[]` |
-| vendor_links | jsonb | `{vendor_name, url, referral_code, affiliate}[]` |
-| is_published | boolean | Draft/live gate |
+| is_published | boolean | Draft/live gate (default `false`) |
+| created_at | timestamptz | Auto-set |
+| updated_at | timestamptz | Auto-updated via trigger |
 
-JSONB shape interfaces live in `shared/types/peptide.ts` (source of truth). The auto-generated `shared/types/supabase.ts` types all JSONB columns as `Json` — cast to the specific interface at the call site or in the shared query wrappers.
+### `public.peptide_aliases`
 
-Full-text search uses a GIN index on `name || ' ' || array_to_string(aliases, ' ')`.
+| Column | Type | Notes |
+|---|---|---|
+| id | uuid | PK (gen_random_uuid()) |
+| peptide_id | uuid | FK → `peptide.id` (cascade delete) |
+| alias | varchar(255) | Alternate name |
+
+Unique on `(peptide_id, alias)`.
+
+### `public.peptide_research_links`
+
+| Column | Type | Notes |
+|---|---|---|
+| id | uuid | PK (gen_random_uuid()) |
+| peptide_id | uuid | FK → `peptide.id` (cascade delete) |
+| research_link | text | URL |
+| title | text | Link label |
+
+Unique on `(peptide_id, research_link)`.
+
+### `public.vendor_links`
+
+| Column | Type | Notes |
+|---|---|---|
+| id | uuid | PK (gen_random_uuid()) |
+| peptide_id | uuid | FK → `peptide.id` (cascade delete) |
+| vendor_name | varchar(255) | |
+| url | text | |
+| referral_code | text | |
+| affiliate | text | |
 
 ## Key Patterns
 

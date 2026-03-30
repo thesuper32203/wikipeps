@@ -3,6 +3,7 @@ export interface Peptide {
   slug: string;
   name: string;
   overview: string | null;
+  category: string | null;
   is_published: boolean;
   created_at: string;
   updated_at: string;

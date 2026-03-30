@@ -30,3 +30,7 @@ export {
 } from './queries/peptides.js';
 
 export { isAdmin } from './queries/admin.js';
+
+// Categories
+export { CATEGORIES, CATEGORY_FILTERS } from './constants/categories.js';
+export type { Category } from './constants/categories.js';

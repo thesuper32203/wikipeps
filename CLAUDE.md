@@ -94,6 +94,7 @@ Admin role is granted via JWT claim `role = 'admin'`.
 | slug | varchar(255) | Unique URL key (e.g. `bpc-157`) |
 | name | varchar(255) | Display name (e.g. `BPC-157`) |
 | overview | text | Markdown intro |
+| category | varchar(255) | One of the predefined categories (nullable) |
 | is_published | boolean | Draft/live gate (default `false`) |
 | created_at | timestamptz | Auto-set |
 | updated_at | timestamptz | Auto-updated via trigger |

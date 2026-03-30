@@ -1,20 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { listPeptides } from '@wikipeps/shared';
+import { listPeptides, CATEGORY_FILTERS } from '@wikipeps/shared';
 import type { Peptide } from '@wikipeps/shared';
 import supabase from '../supabaseClient.ts';
 
-type PeptideListItem = Pick<Peptide, 'id' | 'slug' | 'name' | 'overview'>;
-
-const CATEGORIES = [
-  { label: 'All',              color: '#2dd4bf' },
-  { label: 'Healing',         color: '#4ade80' },
-  { label: 'Cognitive',       color: '#a78bfa' },
-  { label: 'Longevity',       color: '#60a5fa' },
-  { label: 'GH Secretagogues',color: '#fb923c' },
-  { label: 'Fat Loss',        color: '#f472b6' },
-  { label: 'Performance',     color: '#facc15' },
-];
+type PeptideListItem = Pick<Peptide, 'id' | 'slug' | 'name' | 'overview' | 'category'>;
 
 const KEYFRAMES = `
   @keyframes fadeUp {
@@ -212,7 +202,7 @@ export default function HomePage() {
           marginBottom: '2rem',
           animation: 'fadeIn 0.5s 0.35s ease both',
         }}>
-          {CATEGORIES.map((cat) => {
+          {CATEGORY_FILTERS.map((cat) => {
             const active = activeCategory === cat.label;
             return (
               <button
@@ -250,88 +240,69 @@ export default function HomePage() {
         </div>
 
         {/* Section heading row */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'baseline',
-          justifyContent: 'space-between',
-          marginBottom: '1.25rem',
-          paddingBottom: '0.75rem',
-          borderBottom: '1px solid #21262d',
-        }}>
-          <h2 style={{
-            fontFamily: '"Instrument Serif", serif',
-            fontSize: '1.4rem',
-            fontWeight: 400,
-            color: '#e6edf3',
-            margin: 0,
-            letterSpacing: '-0.01em',
-          }}>
-            {activeCategory === 'All' ? 'All Compounds' : activeCategory}
-          </h2>
-          {!loading && (
-            <span style={{
-              fontFamily: '"DM Sans", sans-serif',
-              fontSize: '0.775rem',
-              color: '#4b5563',
-            }}>
-              {peptides.length} {peptides.length === 1 ? 'entry' : 'entries'}
-            </span>
-          )}
-        </div>
+        {(() => {
+          const displayed = activeCategory === 'All'
+            ? peptides
+            : peptides.filter((p) => p.category === activeCategory);
+          return (
+            <>
+              <div style={{
+                display: 'flex',
+                alignItems: 'baseline',
+                justifyContent: 'space-between',
+                marginBottom: '1.25rem',
+                paddingBottom: '0.75rem',
+                borderBottom: '1px solid #21262d',
+              }}>
+                <h2 style={{
+                  fontFamily: '"Instrument Serif", serif',
+                  fontSize: '1.4rem',
+                  fontWeight: 400,
+                  color: '#e6edf3',
+                  margin: 0,
+                  letterSpacing: '-0.01em',
+                }}>
+                  {activeCategory === 'All' ? 'All Compounds' : activeCategory}
+                </h2>
+                {!loading && (
+                  <span style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.775rem', color: '#4b5563' }}>
+                    {displayed.length} {displayed.length === 1 ? 'entry' : 'entries'}
+                  </span>
+                )}
+              </div>
 
-        {/* Loading state */}
-        {loading && (
-          <div style={{
-            textAlign: 'center',
-            padding: '5rem 0',
-            fontFamily: '"DM Sans", sans-serif',
-            color: '#4b5563',
-            fontSize: '0.9rem',
-            letterSpacing: '0.05em',
-          }}>
-            Loading compounds…
-          </div>
-        )}
+              {/* Loading state */}
+              {loading && (
+                <div style={{ textAlign: 'center', padding: '5rem 0', fontFamily: '"DM Sans", sans-serif', color: '#4b5563', fontSize: '0.9rem', letterSpacing: '0.05em' }}>
+                  Loading compounds…
+                </div>
+              )}
 
-        {/* Error state */}
-        {error && (
-          <div style={{
-            fontFamily: '"DM Sans", sans-serif',
-            color: '#f87171',
-            background: '#1c1010',
-            border: '1px solid #3f1515',
-            borderRadius: '8px',
-            padding: '1rem 1.25rem',
-            fontSize: '0.875rem',
-          }}>
-            {error}
-          </div>
-        )}
+              {/* Error state */}
+              {error && (
+                <div style={{ fontFamily: '"DM Sans", sans-serif', color: '#f87171', background: '#1c1010', border: '1px solid #3f1515', borderRadius: '8px', padding: '1rem 1.25rem', fontSize: '0.875rem' }}>
+                  {error}
+                </div>
+              )}
 
-        {/* Empty state */}
-        {!loading && !error && peptides.length === 0 && (
-          <div style={{
-            textAlign: 'center',
-            padding: '5rem 0',
-            fontFamily: '"DM Sans", sans-serif',
-            color: '#4b5563',
-          }}>
-            No published compounds yet.
-          </div>
-        )}
+              {/* Empty state */}
+              {!loading && !error && displayed.length === 0 && (
+                <div style={{ textAlign: 'center', padding: '5rem 0', fontFamily: '"DM Sans", sans-serif', color: '#4b5563' }}>
+                  {activeCategory === 'All' ? 'No published compounds yet.' : `No compounds in "${activeCategory}" yet.`}
+                </div>
+              )}
 
-        {/* Cards grid */}
-        {!loading && !error && peptides.length > 0 && (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))',
-            gap: '1rem',
-          }}>
-            {peptides.map((p, i) => (
-              <PeptideCard key={p.id} peptide={p} index={i} visible={cardsReady} />
-            ))}
-          </div>
-        )}
+              {/* Cards grid */}
+              {!loading && !error && displayed.length > 0 && (
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '1rem' }}>
+                  {displayed.map((p, i) => (
+                    <PeptideCard key={p.id} peptide={p} index={i} visible={cardsReady} />
+                  ))}
+                </div>
+              )}
+            </>
+          );
+        })()}
       </div>
 
       {/* ── Footer ───────────────────────────────────────────────────── */}

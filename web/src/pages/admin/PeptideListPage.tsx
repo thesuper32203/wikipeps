@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { listAllPeptides, deletePeptide } from '@wikipeps/shared';
+import { listAllPeptides, deletePeptide, CATEGORIES } from '@wikipeps/shared';
 import type { Peptide } from '@wikipeps/shared';
 import supabase from '../../supabaseClient.ts';
 
-type Row = Pick<Peptide, 'id' | 'slug' | 'name' | 'is_published' | 'updated_at'>;
+type Row = Pick<Peptide, 'id' | 'slug' | 'name' | 'category' | 'is_published' | 'updated_at'>;
 
 export default function PeptideListPage() {
   const [peptides, setPeptides] = useState<Row[]>([]);
@@ -78,6 +78,7 @@ export default function PeptideListPage() {
               <tr style={{ background: '#111318', borderBottom: '1px solid #21262d' }}>
                 <th style={thStyle}>Name</th>
                 <th style={thStyle}>Slug</th>
+                <th style={thStyle}>Category</th>
                 <th style={thStyle}>Status</th>
                 <th style={thStyle}>Updated</th>
                 <th style={{ ...thStyle, textAlign: 'right' }}></th>
@@ -95,6 +96,29 @@ export default function PeptideListPage() {
                     <code style={{ fontFamily: 'monospace', fontSize: '0.775rem', color: '#6b7280', background: '#161b22', padding: '0.15rem 0.45rem', borderRadius: '4px' }}>
                       {p.slug}
                     </code>
+                  </td>
+                  <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #1a1f28' : undefined }}>
+                    {p.category ? (
+                      <span style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem',
+                        fontFamily: '"DM Sans", sans-serif',
+                        fontSize: '0.75rem',
+                        color: '#8b949e',
+                      }}>
+                        <span style={{
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '50%',
+                          background: CATEGORIES.find(c => c.label === p.category)?.color ?? '#4b5563',
+                          flexShrink: 0,
+                        }} />
+                        {p.category}
+                      </span>
+                    ) : (
+                      <span style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.75rem', color: '#374151' }}>—</span>
+                    )}
                   </td>
                   <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #1a1f28' : undefined }}>
                     <span style={{

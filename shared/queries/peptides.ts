@@ -31,17 +31,17 @@ export async function getPeptideBySlug(
  */
 export async function listPeptides(
   supabase: SupabaseClient
-): Promise<Pick<Peptide, 'id' | 'slug' | 'name' | 'overview'>[]> {
+): Promise<Pick<Peptide, 'id' | 'slug' | 'name' | 'overview' | 'category'>[]> {
   const { data, error } = await supabase
     .from('peptide')
-    .select('id, slug, name, overview')
+    .select('id, slug, name, overview, category')
     .order('name', { ascending: true });
 
   if (error) {
     throw new Error(`listPeptides failed: ${error.message}`);
   }
 
-  return (data ?? []) as Pick<Peptide, 'id' | 'slug' | 'name' | 'overview'>[];
+  return (data ?? []) as Pick<Peptide, 'id' | 'slug' | 'name' | 'overview' | 'category'>[];
 }
 
 // ─── Admin input types ────────────────────────────────────────────────────────
@@ -50,6 +50,7 @@ export interface PeptideInput {
   name: string;
   slug: string;
   overview: string | null;
+  category: string | null;
   is_published: boolean;
 }
 
@@ -72,14 +73,14 @@ export interface VendorLinkInput {
  */
 export async function listAllPeptides(
   supabase: SupabaseClient
-): Promise<Pick<Peptide, 'id' | 'slug' | 'name' | 'is_published' | 'updated_at'>[]> {
+): Promise<Pick<Peptide, 'id' | 'slug' | 'name' | 'category' | 'is_published' | 'updated_at'>[]> {
   const { data, error } = await supabase
     .from('peptide')
-    .select('id, slug, name, is_published, updated_at')
+    .select('id, slug, name, category, is_published, updated_at')
     .order('name', { ascending: true });
 
   if (error) throw new Error(`listAllPeptides failed: ${error.message}`);
-  return (data ?? []) as Pick<Peptide, 'id' | 'slug' | 'name' | 'is_published' | 'updated_at'>[];
+  return (data ?? []) as Pick<Peptide, 'id' | 'slug' | 'name' | 'category' | 'is_published' | 'updated_at'>[];
 }
 
 /**

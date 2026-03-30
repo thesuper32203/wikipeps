@@ -4,6 +4,7 @@ import {
   getPeptideById,
   createPeptide,
   updatePeptide,
+  CATEGORIES,
 } from '@wikipeps/shared';
 import type { ResearchLinkInput, VendorLinkInput } from '@wikipeps/shared';
 import supabase from '../../supabaseClient.ts';
@@ -38,6 +39,7 @@ export default function PeptideFormPage() {
   const [slug, setSlug] = useState('');
   const [slugLocked, setSlugLocked] = useState(false);
   const [overview, setOverview] = useState('');
+  const [category, setCategory] = useState('');
   const [isPublished, setIsPublished] = useState(false);
   const [aliases, setAliases] = useState<string[]>(['']);
   const [researchLinks, setResearchLinks] = useState<ResearchLinkForm[]>([{ title: '', research_link: '' }]);
@@ -57,6 +59,7 @@ export default function PeptideFormPage() {
         setSlug(data.slug);
         setSlugLocked(true);
         setOverview(data.overview ?? '');
+        setCategory(data.category ?? '');
         setIsPublished(data.is_published);
         setAliases([...data.peptide_aliases.map((a) => a.alias), '']);
         setResearchLinks([
@@ -92,6 +95,7 @@ export default function PeptideFormPage() {
       name: name.trim(),
       slug: slug.trim(),
       overview: overview.trim() || null,
+      category: category || null,
       is_published: isPublished,
     };
 
@@ -185,6 +189,18 @@ export default function PeptideFormPage() {
           <p style={{ margin: '0.25rem 0 0', fontFamily: '"DM Sans", sans-serif', fontSize: '0.72rem', color: '#374151' }}>
             /peptides/<span style={{ color: '#6b7280' }}>{slug || '…'}</span>
           </p>
+        </Field>
+        <Field label="Category">
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            style={{ ...inputStyle, cursor: 'pointer' }}
+          >
+            <option value="">— None —</option>
+            {CATEGORIES.map((cat) => (
+              <option key={cat.label} value={cat.label}>{cat.label}</option>
+            ))}
+          </select>
         </Field>
         <Field label="Overview">
           <textarea

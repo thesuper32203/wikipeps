@@ -123,26 +123,41 @@ export default function PeptideFormPage() {
     }
   }
 
-  if (loading) return <p>Loading…</p>;
+  if (loading) return (
+    <p style={{ fontFamily: '"DM Sans", sans-serif', color: '#4b5563' }}>Loading…</p>
+  );
 
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: '760px' }}>
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-        <h2 style={{ margin: 0 }}>{isEdit ? 'Edit Peptide' : 'New Peptide'}</h2>
+      {/* Page header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+        <h2 style={{ fontFamily: '"Instrument Serif", serif', fontSize: '1.5rem', fontWeight: 400, color: '#e6edf3', margin: 0, letterSpacing: '-0.01em' }}>
+          {isEdit ? 'Edit Peptide' : 'New Peptide'}
+        </h2>
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.875rem', cursor: 'pointer' }}>
-            <input type="checkbox" checked={isPublished} onChange={(e) => setIsPublished(e.target.checked)} />
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontFamily: '"DM Sans", sans-serif', fontSize: '0.825rem', color: '#8b949e', cursor: 'pointer' }}>
+            <input
+              type="checkbox"
+              checked={isPublished}
+              onChange={(e) => setIsPublished(e.target.checked)}
+              style={{ accentColor: '#2dd4bf', width: '14px', height: '14px' }}
+            />
             Published
           </label>
-          <button type="button" onClick={() => navigate('/admin')} style={cancelBtnStyle}>Cancel</button>
+          <button type="button" onClick={() => navigate('/admin')} style={cancelBtnStyle}>
+            Cancel
+          </button>
           <button type="submit" disabled={saving} style={saveBtnStyle}>
             {saving ? 'Saving…' : 'Save'}
           </button>
         </div>
       </div>
 
-      {error && <p style={{ color: 'red', marginBottom: '1rem', fontSize: '0.875rem' }}>{error}</p>}
+      {error && (
+        <div style={{ fontFamily: '"DM Sans", sans-serif', color: '#f87171', background: '#1c1010', border: '1px solid #3f1515', borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1.5rem', fontSize: '0.85rem' }}>
+          {error}
+        </div>
+      )}
 
       {/* Basic info */}
       <Section title="Basic Info">
@@ -153,6 +168,8 @@ export default function PeptideFormPage() {
             required
             style={inputStyle}
             placeholder="BPC-157"
+            onFocus={focusStyle}
+            onBlur={blurStyle}
           />
         </Field>
         <Field label="Slug *">
@@ -162,9 +179,11 @@ export default function PeptideFormPage() {
             required
             style={inputStyle}
             placeholder="bpc-157"
+            onFocus={focusStyle}
+            onBlur={blurStyle}
           />
-          <p style={{ margin: '0.2rem 0 0', fontSize: '0.75rem', color: '#888' }}>
-            URL: /peptides/{slug || '…'}
+          <p style={{ margin: '0.25rem 0 0', fontFamily: '"DM Sans", sans-serif', fontSize: '0.72rem', color: '#374151' }}>
+            /peptides/<span style={{ color: '#6b7280' }}>{slug || '…'}</span>
           </p>
         </Field>
         <Field label="Overview">
@@ -174,6 +193,8 @@ export default function PeptideFormPage() {
             rows={6}
             style={{ ...inputStyle, resize: 'vertical' }}
             placeholder="Describe the peptide…"
+            onFocus={focusStyle}
+            onBlur={blurStyle}
           />
         </Field>
       </Section>
@@ -191,6 +212,8 @@ export default function PeptideFormPage() {
               }}
               style={{ ...inputStyle, flex: 1 }}
               placeholder="Alternate name"
+              onFocus={focusStyle}
+              onBlur={blurStyle}
             />
             {aliases.length > 1 && (
               <button type="button" onClick={() => setAliases(aliases.filter((_, j) => j !== i))} style={removeBtnStyle}>
@@ -218,6 +241,8 @@ export default function PeptideFormPage() {
                 }}
                 style={inputStyle}
                 placeholder="Title"
+                onFocus={focusStyle}
+                onBlur={blurStyle}
               />
               <input
                 value={link.research_link}
@@ -228,6 +253,8 @@ export default function PeptideFormPage() {
                 }}
                 style={inputStyle}
                 placeholder="https://pubmed.ncbi.nlm.nih.gov/…"
+                onFocus={focusStyle}
+                onBlur={blurStyle}
               />
             </div>
             {researchLinks.length > 1 && (
@@ -245,24 +272,28 @@ export default function PeptideFormPage() {
       {/* Vendor links */}
       <Section title="Vendor Links">
         {vendorLinks.map((v, i) => (
-          <div key={i} style={{ border: '1px solid #e0e0e0', borderRadius: '6px', padding: '0.75rem', marginBottom: '0.75rem', background: '#fff' }}>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.5rem' }}>
-              <button type="button" onClick={() => setVendorLinks(vendorLinks.filter((_, j) => j !== i))} style={{ ...removeBtnStyle, fontSize: '0.75rem' }}>
+          <div key={i} style={{ border: '1px solid #21262d', borderRadius: '10px', padding: '1rem', marginBottom: '0.75rem', background: '#111318' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.75rem' }}>
+              <button
+                type="button"
+                onClick={() => setVendorLinks(vendorLinks.filter((_, j) => j !== i))}
+                style={{ ...removeBtnStyle, fontSize: '0.75rem' }}
+              >
                 ✕ Remove
               </button>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
               <Field label="Vendor name">
-                <input value={v.vendor_name} onChange={(e) => { const next = [...vendorLinks]; next[i] = { ...next[i], vendor_name: e.target.value }; setVendorLinks(next); }} style={inputStyle} placeholder="Peptide Sciences" />
+                <input value={v.vendor_name} onChange={(e) => { const next = [...vendorLinks]; next[i] = { ...next[i], vendor_name: e.target.value }; setVendorLinks(next); }} style={inputStyle} placeholder="Peptide Sciences" onFocus={focusStyle} onBlur={blurStyle} />
               </Field>
               <Field label="URL">
-                <input value={v.url} onChange={(e) => { const next = [...vendorLinks]; next[i] = { ...next[i], url: e.target.value }; setVendorLinks(next); }} style={inputStyle} placeholder="https://…" />
+                <input value={v.url} onChange={(e) => { const next = [...vendorLinks]; next[i] = { ...next[i], url: e.target.value }; setVendorLinks(next); }} style={inputStyle} placeholder="https://…" onFocus={focusStyle} onBlur={blurStyle} />
               </Field>
               <Field label="Referral code">
-                <input value={v.referral_code} onChange={(e) => { const next = [...vendorLinks]; next[i] = { ...next[i], referral_code: e.target.value }; setVendorLinks(next); }} style={inputStyle} placeholder="SAVE10" />
+                <input value={v.referral_code} onChange={(e) => { const next = [...vendorLinks]; next[i] = { ...next[i], referral_code: e.target.value }; setVendorLinks(next); }} style={inputStyle} placeholder="SAVE10" onFocus={focusStyle} onBlur={blurStyle} />
               </Field>
               <Field label="Affiliate info">
-                <input value={v.affiliate} onChange={(e) => { const next = [...vendorLinks]; next[i] = { ...next[i], affiliate: e.target.value }; setVendorLinks(next); }} style={inputStyle} placeholder="e.g. Commission Junction" />
+                <input value={v.affiliate} onChange={(e) => { const next = [...vendorLinks]; next[i] = { ...next[i], affiliate: e.target.value }; setVendorLinks(next); }} style={inputStyle} placeholder="e.g. Commission Junction" onFocus={focusStyle} onBlur={blurStyle} />
               </Field>
             </div>
           </div>
@@ -277,8 +308,16 @@ export default function PeptideFormPage() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section style={{ marginBottom: '2rem', paddingBottom: '1.5rem', borderBottom: '1px solid #efefef' }}>
-      <h3 style={{ fontSize: '0.9rem', fontWeight: 700, marginBottom: '1rem', color: '#333', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+    <section style={{ marginBottom: '2rem', paddingBottom: '1.75rem', borderBottom: '1px solid #1a1f28' }}>
+      <h3 style={{
+        fontFamily: '"DM Sans", sans-serif',
+        fontSize: '0.68rem',
+        fontWeight: 600,
+        color: '#4b5563',
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em',
+        margin: '0 0 1rem',
+      }}>
         {title}
       </h3>
       {children}
@@ -289,7 +328,14 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: '0.75rem' }}>
-      <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, marginBottom: '0.25rem', color: '#555' }}>
+      <label style={{
+        display: 'block',
+        fontFamily: '"DM Sans", sans-serif',
+        fontSize: '0.75rem',
+        fontWeight: 500,
+        color: '#6b7280',
+        marginBottom: '0.3rem',
+      }}>
         {label}
       </label>
       {children}
@@ -297,51 +343,72 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
+// Shared focus/blur handlers for inputs
+const focusStyle = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  e.target.style.borderColor = '#2dd4bf';
+  e.target.style.boxShadow = '0 0 0 3px rgba(45,212,191,0.08)';
+};
+const blurStyle = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  e.target.style.borderColor = '#30363d';
+  e.target.style.boxShadow = 'none';
+};
+
 const inputStyle: React.CSSProperties = {
   width: '100%',
-  padding: '0.4rem 0.6rem',
-  border: '1px solid #ccc',
-  borderRadius: '4px',
-  fontSize: '0.9rem',
-  fontFamily: 'inherit',
+  padding: '0.5rem 0.7rem',
+  background: '#161b22',
+  border: '1px solid #30363d',
+  borderRadius: '7px',
+  color: '#e6edf3',
+  fontSize: '0.875rem',
+  fontFamily: '"DM Sans", sans-serif',
+  outline: 'none',
   boxSizing: 'border-box',
+  transition: 'border-color 0.2s, box-shadow 0.2s',
 };
 
 const saveBtnStyle: React.CSSProperties = {
-  background: '#1a1a1a',
-  color: '#fff',
-  border: 'none',
+  fontFamily: '"DM Sans", sans-serif',
+  background: '#0d3d38',
+  color: '#2dd4bf',
+  border: '1px solid #1d5a54',
   padding: '0.4rem 1.25rem',
-  borderRadius: '4px',
+  borderRadius: '7px',
   cursor: 'pointer',
-  fontSize: '0.875rem',
+  fontSize: '0.85rem',
+  fontWeight: 500,
 };
 
 const cancelBtnStyle: React.CSSProperties = {
+  fontFamily: '"DM Sans", sans-serif',
   background: 'none',
-  border: '1px solid #ccc',
+  border: '1px solid #21262d',
+  color: '#6b7280',
   padding: '0.4rem 1rem',
-  borderRadius: '4px',
+  borderRadius: '7px',
   cursor: 'pointer',
-  fontSize: '0.875rem',
+  fontSize: '0.85rem',
 };
 
 const removeBtnStyle: React.CSSProperties = {
+  fontFamily: '"DM Sans", sans-serif',
   background: 'none',
   border: 'none',
-  color: '#dc2626',
+  color: '#6b2020',
   cursor: 'pointer',
-  fontSize: '0.9rem',
-  padding: '0.25rem 0.4rem',
+  fontSize: '0.85rem',
+  padding: '0.2rem 0.4rem',
   flexShrink: 0,
+  transition: 'color 0.15s',
 };
 
 const addBtnStyle: React.CSSProperties = {
+  fontFamily: '"DM Sans", sans-serif',
   background: 'none',
-  border: '1px dashed #ccc',
-  padding: '0.3rem 0.75rem',
-  borderRadius: '4px',
+  border: '1px dashed #21262d',
+  color: '#4b5563',
+  padding: '0.35rem 0.8rem',
+  borderRadius: '7px',
   cursor: 'pointer',
-  fontSize: '0.8rem',
-  color: '#555',
+  fontSize: '0.775rem',
 };

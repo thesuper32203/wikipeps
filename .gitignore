@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Environment files — all variants, all packages
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.staging
+.env.staging.local
+.env.production
+.env.production.local
+.env.preview
+.env.preview.local
+**/.env
+**/.env.local
+**/.env.development
+**/.env.development.local
+**/.env.test
+**/.env.test.local
+**/.env.staging
+**/.env.staging.local
+**/.env.production
+**/.env.production.local
+**/.env.preview
+**/.env.preview.local
+
+# dotenvx encrypted key file
+.env.keys
+**/.env.keys
+
+# Build output
+web/dist/
+web/.vite/
+mobile/.expo/
+mobile/dist/
+
+# OS
+.DS_Store
+Thumbs.db

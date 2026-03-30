@@ -25,14 +25,23 @@ export default function AdminLayout() {
   }, [user, authLoading, navigate]);
 
   if (authLoading || !adminChecked) {
-    return <p style={{ padding: '2rem' }}>Loading…</p>;
+    return (
+      <div style={{ minHeight: '100vh', background: '#0d1117', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p style={{ fontFamily: '"DM Sans", sans-serif', color: '#4b5563', fontSize: '0.9rem' }}>Loading…</p>
+      </div>
+    );
   }
 
   if (!adminAccess) {
     return (
-      <div style={{ padding: '2rem' }}>
-        <p>Access denied. Your account does not have admin privileges.</p>
-        <button onClick={signOut} style={{ marginTop: '0.5rem', cursor: 'pointer' }}>
+      <div style={{ minHeight: '100vh', background: '#0d1117', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
+        <p style={{ fontFamily: '"DM Sans", sans-serif', color: '#8b949e', margin: 0 }}>
+          Access denied. Your account does not have admin privileges.
+        </p>
+        <button
+          onClick={signOut}
+          style={{ fontFamily: '"DM Sans", sans-serif', background: 'none', border: '1px solid #30363d', color: '#6b7280', padding: '0.35rem 0.9rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem' }}
+        >
           Sign out
         </button>
       </div>
@@ -40,35 +49,60 @@ export default function AdminLayout() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f9f9f9' }}>
+    <div style={{ minHeight: '100vh', background: '#0d1117' }}>
+      {/* Nav */}
       <nav style={{
-        background: '#1a1a1a',
-        color: '#fff',
+        background: '#111318',
+        borderBottom: '1px solid #21262d',
         padding: '0 1.5rem',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        height: '48px',
+        height: '52px',
       }}>
-        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-          <Link to="/" style={{ color: '#999', textDecoration: 'none', fontSize: '0.8rem' }}>
-            ← Public site
+        <div style={{ display: 'flex', gap: '1.75rem', alignItems: 'center' }}>
+          <Link
+            to="/"
+            style={{ fontFamily: '"Instrument Serif", serif', fontSize: '1.15rem', color: '#e6edf3', textDecoration: 'none', letterSpacing: '-0.01em' }}
+          >
+            WikiPeps
           </Link>
-          <Link to="/admin" style={{ color: '#fff', textDecoration: 'none', fontWeight: 600, fontSize: '0.9rem' }}>
-            Admin
+          <span style={{ color: '#21262d', fontSize: '1rem' }}>|</span>
+          <Link
+            to="/admin"
+            style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.825rem', color: '#8b949e', textDecoration: 'none', letterSpacing: '0.02em' }}
+          >
+            Dashboard
           </Link>
-          <Link to="/admin/peptides/new" style={{ color: '#ccc', textDecoration: 'none', fontSize: '0.875rem' }}>
+          <Link
+            to="/admin/peptides/new"
+            style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.825rem', color: '#2dd4bf', textDecoration: 'none' }}
+          >
             + New Peptide
           </Link>
         </div>
         <button
           onClick={signOut}
-          style={{ background: 'none', border: '1px solid #555', color: '#ccc', padding: '0.2rem 0.75rem', cursor: 'pointer', borderRadius: '4px', fontSize: '0.8rem' }}
+          style={{
+            fontFamily: '"DM Sans", sans-serif',
+            background: 'none',
+            border: '1px solid #21262d',
+            color: '#6b7280',
+            padding: '0.25rem 0.8rem',
+            cursor: 'pointer',
+            borderRadius: '6px',
+            fontSize: '0.775rem',
+            transition: 'border-color 0.15s, color 0.15s',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#30363d'; e.currentTarget.style.color = '#8b949e'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#21262d'; e.currentTarget.style.color = '#6b7280'; }}
         >
           Sign out
         </button>
       </nav>
-      <div style={{ padding: '1.5rem', maxWidth: '900px', margin: '0 auto' }}>
+
+      {/* Content */}
+      <div style={{ maxWidth: '960px', margin: '0 auto', padding: '2rem 1.5rem 4rem' }}>
         <Outlet />
       </div>
     </div>

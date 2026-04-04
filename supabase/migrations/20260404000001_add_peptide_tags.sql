@@ -21,8 +21,8 @@ create policy "public read peptide_tags"
 -- Admins have full access
 create policy "admins manage peptide_tags"
   on public.peptide_tags for all
-  using  ((auth.jwt() ->> 'role') = 'admin')
-  with check ((auth.jwt() ->> 'role') = 'admin');
+  using  (exists (select 1 from public.admins where id = auth.uid()))
+  with check (exists (select 1 from public.admins where id = auth.uid()));
 
 -- Example inserts (for reference — run against a real peptide id):
 -- insert into public.peptide_tags (peptide_id, tag) values

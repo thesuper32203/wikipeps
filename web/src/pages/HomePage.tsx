@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { listPeptides, CATEGORY_FILTERS } from '@wikipeps/shared';
-import type { Peptide } from '@wikipeps/shared';
+import type { PeptideListItem } from '@wikipeps/shared';
 import supabase from '../supabaseClient.ts';
-
-type PeptideListItem = Pick<Peptide, 'id' | 'slug' | 'name' | 'overview' | 'category'>;
 
 const KEYFRAMES = `
   @keyframes fadeUp {
@@ -44,6 +42,39 @@ export default function HomePage() {
   return (
     <>
       <style>{KEYFRAMES}</style>
+
+      {/* ── Top nav ──────────────────────────────────────────────────── */}
+      <nav style={{
+        borderBottom: '1px solid #21262d',
+        padding: '0 1.5rem',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '1.5rem',
+        height: '52px',
+        background: '#0d1117',
+      }}>
+        <span style={{
+          fontFamily: '"Instrument Serif", serif',
+          fontSize: '1.2rem',
+          color: '#e6edf3',
+          letterSpacing: '-0.01em',
+          marginRight: 'auto',
+        }}>
+          WikiPeps
+        </span>
+        <NavLink
+          to="/"
+          style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.825rem', color: '#2dd4bf', textDecoration: 'none' }}
+        >
+          Compounds
+        </NavLink>
+        <NavLink
+          to="/vendors"
+          style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.825rem', color: '#6b7280', textDecoration: 'none' }}
+        >
+          Vendors
+        </NavLink>
+      </nav>
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section style={{
@@ -241,9 +272,19 @@ export default function HomePage() {
 
         {/* Section heading row */}
         {(() => {
-          const displayed = activeCategory === 'All'
-            ? peptides
-            : peptides.filter((p) => p.category === activeCategory);
+          const q = searchQuery.trim().toLowerCase();
+          const catLower = activeCategory.toLowerCase();
+          const displayed = peptides.filter((p) => {
+            const pTags = p.peptide_tags.map((t) => t.tag.toLowerCase());
+            const matchesCategory = activeCategory === 'All'
+              || p.category === activeCategory
+              || pTags.some((t) => catLower.includes(t) || t.includes(catLower.replace(/[^a-z]/g, '')));
+            const matchesSearch = q === '' ||
+              p.name.toLowerCase().includes(q) ||
+              (p.overview?.toLowerCase().includes(q) ?? false) ||
+              pTags.some((t) => t.includes(q));
+            return matchesCategory && matchesSearch;
+          });
           return (
             <>
               <div style={{

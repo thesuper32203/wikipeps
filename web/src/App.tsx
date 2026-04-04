@@ -2,12 +2,21 @@ import { Routes, Route, Link, Outlet } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.tsx';
 import HomePage from './pages/HomePage.tsx';
 import PeptidePage from './pages/PeptidePage.tsx';
+import VendorsPage from './pages/VendorsPage.tsx';
 import LoginPage from './pages/admin/LoginPage.tsx';
 import AdminLayout from './pages/admin/AdminLayout.tsx';
 import PeptideListPage from './pages/admin/PeptideListPage.tsx';
 import PeptideFormPage from './pages/admin/PeptideFormPage.tsx';
 
-// Minimal nav wrapper for detail pages (peptide, 404)
+const NAV_LINK: React.CSSProperties = {
+  fontFamily: '"DM Sans", sans-serif',
+  fontSize: '0.825rem',
+  color: '#6b7280',
+  textDecoration: 'none',
+  letterSpacing: '0.01em',
+  transition: 'color 0.15s',
+};
+
 function PublicLayout() {
   return (
     <div style={{ minHeight: '100vh', background: '#0d1117' }}>
@@ -16,19 +25,17 @@ function PublicLayout() {
         padding: '0 1.5rem',
         display: 'flex',
         alignItems: 'center',
-        gap: '0.75rem',
+        gap: '1.5rem',
         height: '52px',
       }}>
         <Link
           to="/"
-          style={{ fontFamily: '"Instrument Serif", serif', fontSize: '1.2rem', color: '#e6edf3', textDecoration: 'none', letterSpacing: '-0.01em' }}
+          style={{ fontFamily: '"Instrument Serif", serif', fontSize: '1.2rem', color: '#e6edf3', textDecoration: 'none', letterSpacing: '-0.01em', marginRight: 'auto' }}
         >
           WikiPeps
         </Link>
-        <span style={{ color: '#30363d', fontSize: '1rem' }}>›</span>
-        <span style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.825rem', color: '#4b5563' }}>
-          Compound Library
-        </span>
+        <Link to="/" style={NAV_LINK}>Compounds</Link>
+        <Link to="/vendors" style={NAV_LINK}>Vendors</Link>
       </nav>
       <main style={{ maxWidth: '860px', margin: '0 auto', padding: '2.5rem 1.5rem 4rem' }}>
         <Outlet />
@@ -44,9 +51,10 @@ export default function App() {
         {/* Homepage — full-width, no nav wrapper */}
         <Route path="/" element={<HomePage />} />
 
-        {/* Detail pages — dark nav wrapper */}
+        {/* Detail + misc pages — dark nav wrapper */}
         <Route element={<PublicLayout />}>
           <Route path="/peptides/:slug" element={<PeptidePage />} />
+          <Route path="/vendors" element={<VendorsPage />} />
           <Route path="*" element={<p style={{ fontFamily: '"DM Sans", sans-serif', color: '#8b949e' }}>Page not found.</p>} />
         </Route>
 

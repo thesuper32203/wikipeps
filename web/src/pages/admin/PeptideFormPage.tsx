@@ -42,6 +42,7 @@ export default function PeptideFormPage() {
   const [category, setCategory] = useState('');
   const [isPublished, setIsPublished] = useState(false);
   const [aliases, setAliases] = useState<string[]>(['']);
+  const [tags, setTags] = useState<string[]>(['']);
   const [researchLinks, setResearchLinks] = useState<ResearchLinkForm[]>([{ title: '', research_link: '' }]);
   const [vendorLinks, setVendorLinks] = useState<VendorForm[]>([]);
 
@@ -62,6 +63,7 @@ export default function PeptideFormPage() {
         setCategory(data.category ?? '');
         setIsPublished(data.is_published);
         setAliases([...data.peptide_aliases.map((a) => a.alias), '']);
+        setTags([...data.peptide_tags.map((t) => t.tag), '']);
         setResearchLinks([
           ...data.peptide_research_links.map((l) => ({ title: l.title, research_link: l.research_link })),
           { title: '', research_link: '' },
@@ -100,6 +102,7 @@ export default function PeptideFormPage() {
     };
 
     const validAliases = aliases.map((a) => a.trim()).filter(Boolean);
+    const validTags = tags.map((t) => t.trim().toLowerCase().replace(/\s+/g, '_')).filter(Boolean);
 
     const validLinks: ResearchLinkInput[] = researchLinks
       .filter((l) => l.title.trim() && l.research_link.trim())
@@ -116,9 +119,9 @@ export default function PeptideFormPage() {
 
     try {
       if (isEdit && id) {
-        await updatePeptide(supabase, id, peptideInput, validAliases, validLinks, validVendors);
+        await updatePeptide(supabase, id, peptideInput, validAliases, validLinks, validVendors, validTags);
       } else {
-        await createPeptide(supabase, peptideInput, validAliases, validLinks, validVendors);
+        await createPeptide(supabase, peptideInput, validAliases, validLinks, validVendors, validTags);
       }
       navigate('/admin');
     } catch (err: unknown) {
@@ -240,6 +243,37 @@ export default function PeptideFormPage() {
         ))}
         <button type="button" onClick={() => setAliases([...aliases, ''])} style={addBtnStyle}>
           + Add alias
+        </button>
+      </Section>
+
+      {/* Tags */}
+      <Section title="Tags">
+        <p style={{ margin: '0 0 0.75rem', fontFamily: '"DM Sans", sans-serif', fontSize: '0.72rem', color: '#374151' }}>
+          Lowercase, underscored (e.g. <code style={{ color: '#6b7280' }}>fat_loss</code>, <code style={{ color: '#6b7280' }}>healing</code>). Used for search and category filtering.
+        </p>
+        {tags.map((tag, i) => (
+          <div key={i} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+            <input
+              value={tag}
+              onChange={(e) => {
+                const next = [...tags];
+                next[i] = e.target.value;
+                setTags(next);
+              }}
+              style={{ ...inputStyle, flex: 1 }}
+              placeholder="e.g. healing, fat_loss, muscle_growth"
+              onFocus={focusStyle}
+              onBlur={blurStyle}
+            />
+            {tags.length > 1 && (
+              <button type="button" onClick={() => setTags(tags.filter((_, j) => j !== i))} style={removeBtnStyle}>
+                ✕
+              </button>
+            )}
+          </div>
+        ))}
+        <button type="button" onClick={() => setTags([...tags, ''])} style={addBtnStyle}>
+          + Add tag
         </button>
       </Section>
 

@@ -4,12 +4,14 @@ export type {
   PeptideAlias,
   PeptideResearchLink,
   VendorLink,
+  PeptideTag,
   PeptideWithRelations,
 } from './types/peptide.js';
 
 // Admin input types
 export type {
   PeptideInput,
+  PeptideListItem,
   ResearchLinkInput,
   VendorLinkInput,
 } from './queries/peptides.js';

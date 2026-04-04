@@ -31,11 +31,16 @@ export interface VendorLink {
   affiliate: string | null;
 }
 
-/** Shape returned by the joined select query:
- *  .select('*, peptide_aliases(*), peptide_research_links(*), vendor_links(*)')
- */
+export interface PeptideTag {
+  id: string;
+  peptide_id: string;
+  tag: string;
+}
+
+/** Shape returned by the joined select query. */
 export interface PeptideWithRelations extends Peptide {
   peptide_aliases: PeptideAlias[];
   peptide_research_links: PeptideResearchLink[];
   vendor_links: VendorLink[];
+  peptide_tags: PeptideTag[];
 }

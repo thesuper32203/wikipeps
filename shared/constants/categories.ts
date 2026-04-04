@@ -4,12 +4,13 @@ export interface Category {
 }
 
 export const CATEGORIES: Category[] = [
-  { label: 'Healing',          color: '#4ade80' },
-  { label: 'Cognitive',        color: '#a78bfa' },
-  { label: 'Longevity',        color: '#60a5fa' },
-  { label: 'GH Secretagogues', color: '#fb923c' },
-  { label: 'Fat Loss',         color: '#f472b6' },
-  { label: 'Performance',      color: '#facc15' },
+  { label: 'Recovery & Healing',          color: '#4ade80' },
+  { label: 'Brain & Cognitive Function',  color: '#a78bfa' },
+  { label: 'Longevity & Cellular Health', color: '#60a5fa' },
+  { label: 'Muscle Growth & Strength',    color: '#fb923c' },
+  { label: 'Fat Loss & Metabolism',       color: '#f472b6' },
+  { label: 'Hormone Optimization',        color: '#facc15' },
+  { label: 'Skin, Hair & Appearance',     color: '#f9a8d4' },
 ];
 
 /** All filter options including the "show all" entry. */

@@ -1,7 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Peptide, PeptideWithRelations } from '../types/peptide.js';
 
-const FULL_SELECT = '*, peptide_aliases(*), peptide_research_links(*), vendor_links(*)' as const;
+const FULL_SELECT = '*, peptide_aliases(*), peptide_research_links(*), vendor_links(*), peptide_tags(*)' as const;
 
 /**
  * Fetches a single published peptide by slug with all related data.
@@ -25,23 +25,25 @@ export async function getPeptideBySlug(
   return data as PeptideWithRelations;
 }
 
+export type PeptideListItem = Pick<Peptide, 'id' | 'slug' | 'name' | 'overview' | 'category'> & {
+  peptide_tags: { tag: string }[];
+};
+
 /**
- * Returns all published peptides (id, slug, name only) ordered by name.
+ * Returns all published peptides ordered by name, including tags.
  * Used for the home page index.
  */
-export async function listPeptides(
-  supabase: SupabaseClient
-): Promise<Pick<Peptide, 'id' | 'slug' | 'name' | 'overview' | 'category'>[]> {
+export async function listPeptides(supabase: SupabaseClient): Promise<PeptideListItem[]> {
   const { data, error } = await supabase
     .from('peptide')
-    .select('id, slug, name, overview, category')
+    .select('id, slug, name, overview, category, peptide_tags(tag)')
     .order('name', { ascending: true });
 
   if (error) {
     throw new Error(`listPeptides failed: ${error.message}`);
   }
 
-  return (data ?? []) as Pick<Peptide, 'id' | 'slug' | 'name' | 'overview' | 'category'>[];
+  return (data ?? []) as PeptideListItem[];
 }
 
 // ─── Admin input types ────────────────────────────────────────────────────────
@@ -112,7 +114,8 @@ export async function createPeptide(
   peptide: PeptideInput,
   aliases: string[],
   researchLinks: ResearchLinkInput[],
-  vendorLinks: VendorLinkInput[]
+  vendorLinks: VendorLinkInput[],
+  tags: string[] = []
 ): Promise<string> {
   const { data, error } = await supabase
     .from('peptide')
@@ -123,7 +126,7 @@ export async function createPeptide(
   if (error) throw new Error(`createPeptide failed: ${error.message}`);
 
   const id = (data as { id: string }).id;
-  await replaceRelated(supabase, id, aliases, researchLinks, vendorLinks);
+  await replaceRelated(supabase, id, aliases, researchLinks, vendorLinks, tags);
   return id;
 }
 
@@ -136,11 +139,12 @@ export async function updatePeptide(
   peptide: PeptideInput,
   aliases: string[],
   researchLinks: ResearchLinkInput[],
-  vendorLinks: VendorLinkInput[]
+  vendorLinks: VendorLinkInput[],
+  tags: string[] = []
 ): Promise<void> {
   const { error } = await supabase.from('peptide').update(peptide).eq('id', id);
   if (error) throw new Error(`updatePeptide failed: ${error.message}`);
-  await replaceRelated(supabase, id, aliases, researchLinks, vendorLinks);
+  await replaceRelated(supabase, id, aliases, researchLinks, vendorLinks, tags);
 }
 
 /**
@@ -158,15 +162,17 @@ async function replaceRelated(
   peptideId: string,
   aliases: string[],
   researchLinks: ResearchLinkInput[],
-  vendorLinks: VendorLinkInput[]
+  vendorLinks: VendorLinkInput[],
+  tags: string[] = []
 ): Promise<void> {
   await Promise.all([
     supabase.from('peptide_aliases').delete().eq('peptide_id', peptideId),
     supabase.from('peptide_research_links').delete().eq('peptide_id', peptideId),
     supabase.from('vendor_links').delete().eq('peptide_id', peptideId),
+    supabase.from('peptide_tags').delete().eq('peptide_id', peptideId),
   ]);
 
-  const inserts: Promise<unknown>[] = [];
+  const inserts: PromiseLike<unknown>[] = [];
 
   if (aliases.length > 0) {
     inserts.push(
@@ -188,6 +194,14 @@ async function replaceRelated(
     inserts.push(
       supabase.from('vendor_links').insert(
         vendorLinks.map((v) => ({ peptide_id: peptideId, ...v }))
+      )
+    );
+  }
+
+  if (tags.length > 0) {
+    inserts.push(
+      supabase.from('peptide_tags').insert(
+        tags.map((tag) => ({ peptide_id: peptideId, tag }))
       )
     );
   }

@@ -272,16 +272,17 @@ export default function HomePage() {
 
         {/* Section heading row */}
         {(() => {
-          const q = searchQuery.trim().toLowerCase();
+          const normalize = (s: string) => s.toLowerCase().replace(/[-_]/g, ' ');
+          const q = normalize(searchQuery.trim());
           const catLower = activeCategory.toLowerCase();
           const displayed = peptides.filter((p) => {
-            const pTags = p.peptide_tags.map((t) => t.tag.toLowerCase());
+            const pTags = p.peptide_tags.map((t) => normalize(t.tag));
             const matchesCategory = activeCategory === 'All'
               || p.category === activeCategory
               || pTags.some((t) => catLower.includes(t) || t.includes(catLower.replace(/[^a-z]/g, '')));
             const matchesSearch = q === '' ||
-              p.name.toLowerCase().includes(q) ||
-              (p.overview?.toLowerCase().includes(q) ?? false) ||
+              normalize(p.name).includes(q) ||
+              (p.overview ? normalize(p.overview).includes(q) : false) ||
               pTags.some((t) => t.includes(q));
             return matchesCategory && matchesSearch;
           });

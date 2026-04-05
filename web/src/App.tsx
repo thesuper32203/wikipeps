@@ -1,4 +1,5 @@
 import { Routes, Route, Link, Outlet } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { AuthProvider } from './context/AuthContext.tsx';
 import HomePage from './pages/HomePage.tsx';
 import PeptidePage from './pages/PeptidePage.tsx';
@@ -47,6 +48,7 @@ function PublicLayout() {
 export default function App() {
   return (
     <AuthProvider>
+      <Analytics />
       <Routes>
         {/* Homepage — full-width, no nav wrapper */}
         <Route path="/" element={<HomePage />} />

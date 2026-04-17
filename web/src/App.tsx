@@ -1,6 +1,10 @@
+import { useState, useEffect } from 'react';
 import { Routes, Route, Link, Outlet } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import { AuthProvider } from './context/AuthContext.tsx';
+import { listPeptides } from '@wikipeps/shared';
+import type { PeptideListItem } from '@wikipeps/shared';
+import supabase from './supabaseClient.ts';
 import HomePage from './pages/HomePage.tsx';
 import PeptidePage from './pages/PeptidePage.tsx';
 import VendorsPage from './pages/VendorsPage.tsx';
@@ -8,6 +12,7 @@ import LoginPage from './pages/admin/LoginPage.tsx';
 import AdminLayout from './pages/admin/AdminLayout.tsx';
 import PeptideListPage from './pages/admin/PeptideListPage.tsx';
 import PeptideFormPage from './pages/admin/PeptideFormPage.tsx';
+import PeptideFinderModal from './components/PeptideFinder/PeptideFinderModal.tsx';
 
 const NAV_LINK: React.CSSProperties = {
   fontFamily: '"DM Sans", sans-serif',
@@ -19,8 +24,20 @@ const NAV_LINK: React.CSSProperties = {
 };
 
 function PublicLayout() {
+  const [showFinder, setShowFinder] = useState(false);
+  const [peptides, setPeptides] = useState<PeptideListItem[]>([]);
+
+  useEffect(() => {
+    if (showFinder && peptides.length === 0) {
+      listPeptides(supabase).then(setPeptides).catch(() => {});
+    }
+  }, [showFinder]);
+
   return (
     <div style={{ minHeight: '100vh', background: '#0d1117' }}>
+      {showFinder && (
+        <PeptideFinderModal peptides={peptides} onClose={() => setShowFinder(false)} />
+      )}
       <nav style={{
         borderBottom: '1px solid #21262d',
         padding: '0 1.5rem',
@@ -37,6 +54,22 @@ function PublicLayout() {
         </Link>
         <Link to="/" style={NAV_LINK}>Compounds</Link>
         <Link to="/vendors" style={NAV_LINK}>Vendors</Link>
+        <button
+          onClick={() => setShowFinder(true)}
+          style={{
+            fontFamily: '"DM Sans", sans-serif',
+            fontSize: '0.825rem',
+            color: '#0d1117',
+            background: '#2dd4bf',
+            border: 'none',
+            borderRadius: '6px',
+            padding: '0.3rem 0.75rem',
+            cursor: 'pointer',
+            fontWeight: 500,
+          }}
+        >
+          Find Your Peptide
+        </button>
       </nav>
       <main style={{ maxWidth: '860px', margin: '0 auto', padding: '2.5rem 1.5rem 4rem' }}>
         <Outlet />

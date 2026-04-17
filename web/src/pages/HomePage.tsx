@@ -86,6 +86,22 @@ export default function HomePage() {
         >
           Vendors
         </NavLink>
+        <button
+          onClick={() => setShowFinder(true)}
+          style={{
+            fontFamily: '"DM Sans", sans-serif',
+            fontSize: '0.825rem',
+            color: '#0d1117',
+            background: '#2dd4bf',
+            border: 'none',
+            borderRadius: '6px',
+            padding: '0.3rem 0.75rem',
+            cursor: 'pointer',
+            fontWeight: 500,
+          }}
+        >
+          Find Your Peptide
+        </button>
       </nav>
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}

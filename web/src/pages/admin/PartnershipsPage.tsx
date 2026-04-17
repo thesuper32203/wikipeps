@@ -9,6 +9,9 @@ interface Partnership {
   dashboard_url: string | null;
   notes: string | null;
   is_active: boolean;
+  commission_payout: number | null;
+  first_time_commission: number | null;
+  recurring_commission: number | null;
   created_at: string;
 }
 
@@ -19,6 +22,9 @@ const empty = (): Omit<Partnership, 'id' | 'created_at'> => ({
   dashboard_url: '',
   notes: '',
   is_active: true,
+  commission_payout: null,
+  first_time_commission: null,
+  recurring_commission: null,
 });
 
 export default function PartnershipsPage() {
@@ -54,6 +60,9 @@ export default function PartnershipsPage() {
       dashboard_url: addForm.dashboard_url?.trim() || null,
       notes: addForm.notes?.trim() || null,
       is_active: addForm.is_active,
+      commission_payout: addForm.commission_payout,
+      first_time_commission: addForm.first_time_commission,
+      recurring_commission: addForm.recurring_commission,
     }]);
     setSaving(false);
     if (err) { alert(err.message); return; }
@@ -72,6 +81,9 @@ export default function PartnershipsPage() {
       dashboard_url: editForm.dashboard_url?.trim() || null,
       notes: editForm.notes?.trim() || null,
       is_active: editForm.is_active,
+      commission_payout: editForm.commission_payout,
+      first_time_commission: editForm.first_time_commission,
+      recurring_commission: editForm.recurring_commission,
     }).eq('id', id);
     setSaving(false);
     if (err) { alert(err.message); return; }
@@ -95,6 +107,9 @@ export default function PartnershipsPage() {
       dashboard_url: p.dashboard_url ?? '',
       notes: p.notes ?? '',
       is_active: p.is_active,
+      commission_payout: p.commission_payout,
+      first_time_commission: p.first_time_commission,
+      recurring_commission: p.recurring_commission,
     });
   }
 
@@ -177,6 +192,42 @@ export default function PartnershipsPage() {
                 placeholder="Optional notes"
               />
             </label>
+            <label style={labelStyle}>
+              Commission Payout (%)
+              <input
+                type="number"
+                min="0"
+                step="0.01"
+                style={inputStyle}
+                value={addForm.commission_payout ?? ''}
+                onChange={e => setAddForm(f => ({ ...f, commission_payout: e.target.value ? Number(e.target.value) : null }))}
+                placeholder="e.g. 15"
+              />
+            </label>
+            <label style={labelStyle}>
+              First-Time Commission (%)
+              <input
+                type="number"
+                min="0"
+                step="0.01"
+                style={inputStyle}
+                value={addForm.first_time_commission ?? ''}
+                onChange={e => setAddForm(f => ({ ...f, first_time_commission: e.target.value ? Number(e.target.value) : null }))}
+                placeholder="e.g. 20"
+              />
+            </label>
+            <label style={labelStyle}>
+              Recurring Commission (%)
+              <input
+                type="number"
+                min="0"
+                step="0.01"
+                style={inputStyle}
+                value={addForm.recurring_commission ?? ''}
+                onChange={e => setAddForm(f => ({ ...f, recurring_commission: e.target.value ? Number(e.target.value) : null }))}
+                placeholder="e.g. 10"
+              />
+            </label>
             <label style={{ ...labelStyle, flexDirection: 'row', alignItems: 'center', gap: '0.5rem', gridColumn: '1 / -1' }}>
               <input
                 type="checkbox"
@@ -214,6 +265,9 @@ export default function PartnershipsPage() {
                 <th style={thStyle}>Partner Code</th>
                 <th style={thStyle}>Referral Link</th>
                 <th style={thStyle}>Dashboard</th>
+                <th style={thStyle}>Payout</th>
+                <th style={thStyle}>1st Buy</th>
+                <th style={thStyle}>Recurring</th>
                 <th style={thStyle}>Status</th>
                 <th style={{ ...thStyle, textAlign: 'right' }}></th>
               </tr>
@@ -222,7 +276,7 @@ export default function PartnershipsPage() {
               {partnerships.map((p, i) => (
                 editingId === p.id ? (
                   <tr key={p.id}>
-                    <td colSpan={6} style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #f0f0eb' : undefined, background: '#f9f9f7' }}>
+                    <td colSpan={9} style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #f0f0eb' : undefined, background: '#f9f9f7' }}>
                       <div style={formGridStyle}>
                         <label style={labelStyle}>
                           Vendor Name *
@@ -243,6 +297,18 @@ export default function PartnershipsPage() {
                         <label style={{ ...labelStyle, gridColumn: '1 / -1' }}>
                           Notes
                           <input style={inputStyle} value={editForm.notes ?? ''} onChange={e => setEditForm(f => ({ ...f, notes: e.target.value }))} />
+                        </label>
+                        <label style={labelStyle}>
+                          Commission Payout (%)
+                          <input type="number" min="0" step="0.01" style={inputStyle} value={editForm.commission_payout ?? ''} onChange={e => setEditForm(f => ({ ...f, commission_payout: e.target.value ? Number(e.target.value) : null }))} placeholder="e.g. 15" />
+                        </label>
+                        <label style={labelStyle}>
+                          First-Time Commission (%)
+                          <input type="number" min="0" step="0.01" style={inputStyle} value={editForm.first_time_commission ?? ''} onChange={e => setEditForm(f => ({ ...f, first_time_commission: e.target.value ? Number(e.target.value) : null }))} placeholder="e.g. 20" />
+                        </label>
+                        <label style={labelStyle}>
+                          Recurring Commission (%)
+                          <input type="number" min="0" step="0.01" style={inputStyle} value={editForm.recurring_commission ?? ''} onChange={e => setEditForm(f => ({ ...f, recurring_commission: e.target.value ? Number(e.target.value) : null }))} placeholder="e.g. 10" />
                         </label>
                         <label style={{ ...labelStyle, flexDirection: 'row', alignItems: 'center', gap: '0.5rem', gridColumn: '1 / -1' }}>
                           <input type="checkbox" checked={editForm.is_active} onChange={e => setEditForm(f => ({ ...f, is_active: e.target.checked }))} />
@@ -283,6 +349,21 @@ export default function PartnershipsPage() {
                           Dashboard ↗
                         </a>
                       ) : <span style={{ color: '#c8c8c0', fontFamily: '"Inter", sans-serif', fontSize: '0.775rem' }}>—</span>}
+                    </td>
+                    <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #f0f0eb' : undefined }}>
+                      {p.commission_payout != null
+                        ? <span style={commStyle}>{p.commission_payout}%</span>
+                        : <span style={dashStyle}>—</span>}
+                    </td>
+                    <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #f0f0eb' : undefined }}>
+                      {p.first_time_commission != null
+                        ? <span style={commStyle}>{p.first_time_commission}%</span>
+                        : <span style={dashStyle}>—</span>}
+                    </td>
+                    <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #f0f0eb' : undefined }}>
+                      {p.recurring_commission != null
+                        ? <span style={commStyle}>{p.recurring_commission}%</span>
+                        : <span style={dashStyle}>—</span>}
                     </td>
                     <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #f0f0eb' : undefined }}>
                       <span style={{
@@ -420,4 +501,17 @@ const cancelBtnStyle: React.CSSProperties = {
   borderRadius: '7px',
   cursor: 'pointer',
   fontSize: '0.825rem',
+};
+
+const commStyle: React.CSSProperties = {
+  fontFamily: '"Inter", sans-serif',
+  fontSize: '0.8rem',
+  color: '#2d5438',
+  fontWeight: 600,
+};
+
+const dashStyle: React.CSSProperties = {
+  color: '#c8c8c0',
+  fontFamily: '"Inter", sans-serif',
+  fontSize: '0.775rem',
 };

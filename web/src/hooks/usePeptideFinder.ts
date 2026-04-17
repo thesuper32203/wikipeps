@@ -82,7 +82,7 @@ export function usePeptideFinder(): FinderState & FinderActions {
 
   const computeResults = useCallback((peptides: PeptideListItem[]): ScoredPeptide[] => {
     const primaryCategory = GOAL_OPTIONS.find((g) => g.label === state.primaryGoal)?.category ?? null;
-    const secondaryCategory = state.secondaryGoal
+    const secondaryCategory = state.secondaryGoal && state.secondaryGoal !== 'none'
       ? GOAL_OPTIONS.find((g) => g.label === state.secondaryGoal)?.category ?? null
       : null;
 

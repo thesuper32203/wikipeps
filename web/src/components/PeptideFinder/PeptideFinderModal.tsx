@@ -63,7 +63,7 @@ export default function PeptideFinderModal({ peptides, onClose }: PeptideFinderM
 
   const canAdvance = (() => {
     if (finder.step === 1) return !!finder.primaryGoal;
-    if (finder.step === 2) return !!finder.secondaryGoal;
+    if (finder.step === 2) return finder.secondaryGoal !== null;
     if (finder.step === 3) return !!finder.experience;
     if (finder.step === 4) return true;
     return false;
@@ -156,9 +156,9 @@ export default function PeptideFinderModal({ peptides, onClose }: PeptideFinderM
               question="Any secondary goal?"
               subtitle="Optional — helps us suggest a stack."
               options={secondaryOptions}
-              selected={finder.secondaryGoal}
+              selected={finder.secondaryGoal === 'none' ? 'Just the one' : finder.secondaryGoal}
               onSelect={(label) => {
-                finder.setSecondaryGoal(label === 'Just the one' ? null : label);
+                finder.setSecondaryGoal(label === 'Just the one' ? 'none' : label);
               }}
             />
           )}

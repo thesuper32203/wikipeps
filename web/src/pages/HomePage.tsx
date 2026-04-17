@@ -3,7 +3,6 @@ import { Link, NavLink } from 'react-router-dom';
 import { listPeptides, CATEGORY_FILTERS } from '@wikipeps/shared';
 import type { PeptideListItem } from '@wikipeps/shared';
 import supabase from '../supabaseClient.ts';
-import PeptideFinderModal from '../components/PeptideFinder/PeptideFinderModal.tsx';
 
 const KEYFRAMES = `
   @keyframes fadeUp {
@@ -23,9 +22,6 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
   const [cardsReady, setCardsReady] = useState(false);
-  const [showFinder, setShowFinder] = useState(
-    () => !localStorage.getItem('wikipeps_survey_done')
-  );
 
   useEffect(() => {
     listPeptides(supabase)
@@ -47,13 +43,6 @@ export default function HomePage() {
   return (
     <>
       <style>{KEYFRAMES}</style>
-
-      {showFinder && (
-        <PeptideFinderModal
-          peptides={peptides}
-          onClose={() => setShowFinder(false)}
-        />
-      )}
 
       {/* ── Top nav ──────────────────────────────────────────────────── */}
       <nav style={{
@@ -86,22 +75,6 @@ export default function HomePage() {
         >
           Vendors
         </NavLink>
-        <button
-          onClick={() => setShowFinder(true)}
-          style={{
-            fontFamily: '"Inter", sans-serif',
-            fontSize: '0.825rem',
-            color: '#ffffff',
-            background: '#4a7a5a',
-            border: 'none',
-            borderRadius: '6px',
-            padding: '0.3rem 0.75rem',
-            cursor: 'pointer',
-            fontWeight: 500,
-          }}
-        >
-          Find Your Peptide
-        </button>
       </nav>
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
@@ -147,27 +120,6 @@ export default function HomePage() {
             mechanisms, and clinical data — in plain language.
           </p>
 
-          <button
-            onClick={() => setShowFinder(true)}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: '#4a7a5a',
-              fontFamily: '"Inter", sans-serif',
-              fontSize: '0.875rem',
-              cursor: 'pointer',
-              padding: '0',
-              marginBottom: '2.75rem',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.3rem',
-              opacity: 0.85,
-            }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = '1'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = '0.85'; }}
-          >
-            Not sure where to start? Take the quiz →
-          </button>
         </div>
 
         {/* Search bar */}

@@ -26,21 +26,21 @@ export default function AdminLayout() {
 
   if (authLoading || !adminChecked) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0d1117', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p style={{ fontFamily: '"DM Sans", sans-serif', color: '#4b5563', fontSize: '0.9rem' }}>Loading…</p>
+      <div style={{ minHeight: '100vh', background: '#fafaf8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p style={{ fontFamily: '"Inter", sans-serif', color: '#9ca39a', fontSize: '0.9rem' }}>Loading…</p>
       </div>
     );
   }
 
   if (!adminAccess) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0d1117', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
-        <p style={{ fontFamily: '"DM Sans", sans-serif', color: '#8b949e', margin: 0 }}>
+      <div style={{ minHeight: '100vh', background: '#fafaf8', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
+        <p style={{ fontFamily: '"Inter", sans-serif', color: '#6b7266', margin: 0 }}>
           Access denied. Your account does not have admin privileges.
         </p>
         <button
           onClick={signOut}
-          style={{ fontFamily: '"DM Sans", sans-serif', background: 'none', border: '1px solid #30363d', color: '#6b7280', padding: '0.35rem 0.9rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem' }}
+          style={{ fontFamily: '"Inter", sans-serif', background: 'none', border: '1px solid #d0d0c8', color: '#6b7266', padding: '0.35rem 0.9rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem' }}
         >
           Sign out
         </button>
@@ -49,11 +49,11 @@ export default function AdminLayout() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0d1117' }}>
+    <div style={{ minHeight: '100vh', background: '#fafaf8' }}>
       {/* Nav */}
       <nav style={{
-        background: '#111318',
-        borderBottom: '1px solid #21262d',
+        background: '#ffffff',
+        borderBottom: '1px solid #e4e4de',
         padding: '0 1.5rem',
         display: 'flex',
         justifyContent: 'space-between',
@@ -63,20 +63,26 @@ export default function AdminLayout() {
         <div style={{ display: 'flex', gap: '1.75rem', alignItems: 'center' }}>
           <Link
             to="/"
-            style={{ fontFamily: '"Instrument Serif", serif', fontSize: '1.15rem', color: '#e6edf3', textDecoration: 'none', letterSpacing: '-0.01em' }}
+            style={{ fontFamily: '"Instrument Serif", serif', fontSize: '1.15rem', color: '#111110', textDecoration: 'none', letterSpacing: '-0.01em' }}
           >
             WikiPeps
           </Link>
-          <span style={{ color: '#21262d', fontSize: '1rem' }}>|</span>
+          <span style={{ color: '#e4e4de', fontSize: '1rem' }}>|</span>
           <Link
             to="/admin"
-            style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.825rem', color: '#8b949e', textDecoration: 'none', letterSpacing: '0.02em' }}
+            style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.825rem', color: '#6b7266', textDecoration: 'none', letterSpacing: '0.02em' }}
           >
             Dashboard
           </Link>
           <Link
+            to="/admin/partnerships"
+            style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.825rem', color: '#6b7266', textDecoration: 'none' }}
+          >
+            Partnerships
+          </Link>
+          <Link
             to="/admin/peptides/new"
-            style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.825rem', color: '#2dd4bf', textDecoration: 'none' }}
+            style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.825rem', color: '#4a7a5a', textDecoration: 'none' }}
           >
             + New Peptide
           </Link>
@@ -84,18 +90,18 @@ export default function AdminLayout() {
         <button
           onClick={signOut}
           style={{
-            fontFamily: '"DM Sans", sans-serif',
+            fontFamily: '"Inter", sans-serif',
             background: 'none',
-            border: '1px solid #21262d',
-            color: '#6b7280',
+            border: '1px solid #e4e4de',
+            color: '#6b7266',
             padding: '0.25rem 0.8rem',
             cursor: 'pointer',
             borderRadius: '6px',
             fontSize: '0.775rem',
             transition: 'border-color 0.15s, color 0.15s',
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#30363d'; e.currentTarget.style.color = '#8b949e'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#21262d'; e.currentTarget.style.color = '#6b7280'; }}
+          onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#d0d0c8'; e.currentTarget.style.color = '#111110'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#e4e4de'; e.currentTarget.style.color = '#6b7266'; }}
         >
           Sign out
         </button>

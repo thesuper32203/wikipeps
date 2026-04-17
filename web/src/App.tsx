@@ -12,12 +12,13 @@ import LoginPage from './pages/admin/LoginPage.tsx';
 import AdminLayout from './pages/admin/AdminLayout.tsx';
 import PeptideListPage from './pages/admin/PeptideListPage.tsx';
 import PeptideFormPage from './pages/admin/PeptideFormPage.tsx';
+import PartnershipsPage from './pages/admin/PartnershipsPage.tsx';
 import PeptideFinderModal from './components/PeptideFinder/PeptideFinderModal.tsx';
 
 const NAV_LINK: React.CSSProperties = {
-  fontFamily: '"DM Sans", sans-serif',
+  fontFamily: '"Inter", sans-serif',
   fontSize: '0.825rem',
-  color: '#6b7280',
+  color: '#6b7266',
   textDecoration: 'none',
   letterSpacing: '0.01em',
   transition: 'color 0.15s',
@@ -34,21 +35,22 @@ function PublicLayout() {
   }, [showFinder]);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0d1117' }}>
+    <div style={{ minHeight: '100vh', background: '#fafaf8' }}>
       {showFinder && (
         <PeptideFinderModal peptides={peptides} onClose={() => setShowFinder(false)} />
       )}
       <nav style={{
-        borderBottom: '1px solid #21262d',
+        borderBottom: '1px solid #e4e4de',
         padding: '0 1.5rem',
         display: 'flex',
         alignItems: 'center',
         gap: '1.5rem',
         height: '52px',
+        background: '#ffffff',
       }}>
         <Link
           to="/"
-          style={{ fontFamily: '"Instrument Serif", serif', fontSize: '1.2rem', color: '#e6edf3', textDecoration: 'none', letterSpacing: '-0.01em', marginRight: 'auto' }}
+          style={{ fontFamily: '"Instrument Serif", serif', fontSize: '1.2rem', color: '#111110', textDecoration: 'none', letterSpacing: '-0.01em', marginRight: 'auto' }}
         >
           WikiPeps
         </Link>
@@ -57,10 +59,10 @@ function PublicLayout() {
         <button
           onClick={() => setShowFinder(true)}
           style={{
-            fontFamily: '"DM Sans", sans-serif',
+            fontFamily: '"Inter", sans-serif',
             fontSize: '0.825rem',
-            color: '#0d1117',
-            background: '#2dd4bf',
+            color: '#ffffff',
+            background: '#4a7a5a',
             border: 'none',
             borderRadius: '6px',
             padding: '0.3rem 0.75rem',
@@ -99,6 +101,7 @@ export default function App() {
           <Route index element={<PeptideListPage />} />
           <Route path="peptides/new" element={<PeptideFormPage />} />
           <Route path="peptides/:id/edit" element={<PeptideFormPage />} />
+          <Route path="partnerships" element={<PartnershipsPage />} />
         </Route>
       </Routes>
     </AuthProvider>

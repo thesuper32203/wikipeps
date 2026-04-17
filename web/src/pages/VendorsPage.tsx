@@ -113,17 +113,6 @@ export default function VendorsPage() {
                 {p.vendor_name}
               </strong>
 
-              {p.partner_code && (
-                <span style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.8rem', color: '#6b7266' }}>
-                  Code: <code style={{
-                    background: '#edf4ee',
-                    padding: '0.1rem 0.4rem',
-                    borderRadius: '4px',
-                    color: '#2d5438',
-                  }}>{p.partner_code}</code>
-                </span>
-              )}
-
               <span style={{
                 fontFamily: '"Inter", sans-serif',
                 fontSize: '0.85rem',

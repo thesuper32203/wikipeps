@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Routes, Route, Link, Outlet } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import { AuthProvider } from './context/AuthContext.tsx';
+import DisclaimerModal, { STORAGE_KEY } from './components/DisclaimerModal.tsx';
 import HomePage from './pages/HomePage.tsx';
 import PeptidePage from './pages/PeptidePage.tsx';
 import VendorsPage from './pages/VendorsPage.tsx';
@@ -48,9 +50,16 @@ function PublicLayout() {
 }
 
 export default function App() {
+  const [disclaimerAccepted, setDisclaimerAccepted] = useState(
+    () => !!localStorage.getItem(STORAGE_KEY)
+  );
+
   return (
     <AuthProvider>
       <Analytics />
+      {!disclaimerAccepted && (
+        <DisclaimerModal onAccept={() => setDisclaimerAccepted(true)} />
+      )}
       <Routes>
         {/* Homepage — full-width, no nav wrapper */}
         <Route path="/" element={<HomePage />} />

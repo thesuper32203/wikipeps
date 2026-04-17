@@ -32,11 +32,11 @@ export default function PeptideListPage() {
   }
 
   if (loading) return (
-    <p style={{ fontFamily: '"DM Sans", sans-serif', color: '#4b5563', fontSize: '0.9rem' }}>Loading…</p>
+    <p style={{ fontFamily: '"Inter", sans-serif', color: '#9ca39a', fontSize: '0.9rem' }}>Loading…</p>
   );
 
   if (error) return (
-    <div style={{ fontFamily: '"DM Sans", sans-serif', color: '#f87171', background: '#1c1010', border: '1px solid #3f1515', borderRadius: '8px', padding: '1rem 1.25rem', fontSize: '0.875rem' }}>
+    <div style={{ fontFamily: '"Inter", sans-serif', color: '#dc4a3d', background: '#fef2f1', border: '1px solid rgba(220,74,61,0.2)', borderRadius: '8px', padding: '1rem 1.25rem', fontSize: '0.875rem' }}>
       {error}
     </div>
   );
@@ -46,10 +46,10 @@ export default function PeptideListPage() {
       {/* Page header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
         <div>
-          <h2 style={{ fontFamily: '"Instrument Serif", serif', fontSize: '1.5rem', fontWeight: 400, color: '#e6edf3', margin: '0 0 0.2rem', letterSpacing: '-0.01em' }}>
+          <h2 style={{ fontFamily: '"Instrument Serif", serif', fontSize: '1.5rem', fontWeight: 400, color: '#111110', margin: '0 0 0.2rem', letterSpacing: '-0.01em' }}>
             Compounds
           </h2>
-          <p style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.775rem', color: '#4b5563', margin: 0 }}>
+          <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.775rem', color: '#9ca39a', margin: 0 }}>
             {peptides.length} {peptides.length === 1 ? 'entry' : 'entries'}
           </p>
         </div>
@@ -62,20 +62,20 @@ export default function PeptideListPage() {
         <div style={{
           textAlign: 'center',
           padding: '4rem 0',
-          border: '1px dashed #21262d',
+          border: '1px dashed #d0d0c8',
           borderRadius: '12px',
-          fontFamily: '"DM Sans", sans-serif',
-          color: '#4b5563',
+          fontFamily: '"Inter", sans-serif',
+          color: '#9ca39a',
           fontSize: '0.875rem',
         }}>
           No peptides yet.{' '}
-          <Link to="/admin/peptides/new" style={{ color: '#2dd4bf' }}>Create your first one →</Link>
+          <Link to="/admin/peptides/new" style={{ color: '#4a7a5a' }}>Create your first one →</Link>
         </div>
       ) : (
-        <div style={{ border: '1px solid #21262d', borderRadius: '12px', overflow: 'hidden' }}>
+        <div style={{ border: '1px solid #e4e4de', borderRadius: '12px', overflow: 'hidden' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem' }}>
             <thead>
-              <tr style={{ background: '#111318', borderBottom: '1px solid #21262d' }}>
+              <tr style={{ background: '#f4f4f0', borderBottom: '1px solid #e4e4de' }}>
                 <th style={thStyle}>Name</th>
                 <th style={thStyle}>Slug</th>
                 <th style={thStyle}>Category</th>
@@ -87,76 +87,76 @@ export default function PeptideListPage() {
             <tbody>
               {peptides.map((p, i) => (
                 <tr key={p.id}>
-                  <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #1a1f28' : undefined }}>
-                    <span style={{ fontFamily: '"DM Sans", sans-serif', fontWeight: 500, color: '#e6edf3' }}>
+                  <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #f0f0eb' : undefined }}>
+                    <span style={{ fontFamily: '"Inter", sans-serif', fontWeight: 500, color: '#111110' }}>
                       {p.name}
                     </span>
                   </td>
-                  <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #1a1f28' : undefined }}>
-                    <code style={{ fontFamily: 'monospace', fontSize: '0.775rem', color: '#6b7280', background: '#161b22', padding: '0.15rem 0.45rem', borderRadius: '4px' }}>
+                  <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #f0f0eb' : undefined }}>
+                    <code style={{ fontFamily: 'monospace', fontSize: '0.775rem', color: '#6b7266', background: '#f4f4f0', padding: '0.15rem 0.45rem', borderRadius: '4px' }}>
                       {p.slug}
                     </code>
                   </td>
-                  <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #1a1f28' : undefined }}>
+                  <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #f0f0eb' : undefined }}>
                     {p.category ? (
                       <span style={{
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '0.3rem',
-                        fontFamily: '"DM Sans", sans-serif',
+                        fontFamily: '"Inter", sans-serif',
                         fontSize: '0.75rem',
-                        color: '#8b949e',
+                        color: '#6b7266',
                       }}>
                         <span style={{
                           width: '6px',
                           height: '6px',
                           borderRadius: '50%',
-                          background: CATEGORIES.find(c => c.label === p.category)?.color ?? '#4b5563',
+                          background: CATEGORIES.find(c => c.label === p.category)?.color ?? '#9ca39a',
                           flexShrink: 0,
                         }} />
                         {p.category}
                       </span>
                     ) : (
-                      <span style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.75rem', color: '#374151' }}>—</span>
+                      <span style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.75rem', color: '#9ca39a' }}>—</span>
                     )}
                   </td>
-                  <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #1a1f28' : undefined }}>
+                  <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #f0f0eb' : undefined }}>
                     <span style={{
-                      fontFamily: '"DM Sans", sans-serif',
+                      fontFamily: '"Inter", sans-serif',
                       fontSize: '0.7rem',
                       fontWeight: 600,
                       letterSpacing: '0.04em',
-                      color: p.is_published ? '#34d399' : '#fbbf24',
-                      background: p.is_published ? 'rgba(52,211,153,0.1)' : 'rgba(251,191,36,0.1)',
-                      border: `1px solid ${p.is_published ? 'rgba(52,211,153,0.2)' : 'rgba(251,191,36,0.2)'}`,
+                      color: p.is_published ? '#4a7a5a' : '#b45309',
+                      background: p.is_published ? '#edf4ee' : '#fef3c7',
+                      border: `1px solid ${p.is_published ? 'rgba(74,122,90,0.25)' : 'rgba(180,83,9,0.2)'}`,
                       padding: '0.2rem 0.55rem',
                       borderRadius: '999px',
                     }}>
                       {p.is_published ? 'Published' : 'Draft'}
                     </span>
                   </td>
-                  <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #1a1f28' : undefined, fontFamily: '"DM Sans", sans-serif', color: '#4b5563', fontSize: '0.775rem' }}>
+                  <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #f0f0eb' : undefined, fontFamily: '"Inter", sans-serif', color: '#9ca39a', fontSize: '0.775rem' }}>
                     {new Date(p.updated_at).toLocaleDateString()}
                   </td>
-                  <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #1a1f28' : undefined, textAlign: 'right', whiteSpace: 'nowrap' }}>
+                  <td style={{ ...tdStyle, borderTop: i > 0 ? '1px solid #f0f0eb' : undefined, textAlign: 'right', whiteSpace: 'nowrap' }}>
                     <Link
                       to={`/peptides/${p.slug}`}
                       target="_blank"
-                      style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.775rem', color: '#4b5563', textDecoration: 'none', marginRight: '1rem' }}
+                      style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.775rem', color: '#9ca39a', textDecoration: 'none', marginRight: '1rem' }}
                     >
                       View ↗
                     </Link>
                     <Link
                       to={`/admin/peptides/${p.id}/edit`}
-                      style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.775rem', color: '#8b949e', textDecoration: 'none', marginRight: '1rem' }}
+                      style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.775rem', color: '#6b7266', textDecoration: 'none', marginRight: '1rem' }}
                     >
                       Edit
                     </Link>
                     <button
                       onClick={() => handleDelete(p.id, p.name)}
-                      style={{ fontFamily: '"DM Sans", sans-serif', background: 'none', border: 'none', color: '#6b2020', cursor: 'pointer', fontSize: '0.775rem', padding: 0, transition: 'color 0.15s' }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = '#f87171')}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = '#6b2020')}
+                      style={{ fontFamily: '"Inter", sans-serif', background: 'none', border: 'none', color: '#c0a0a0', cursor: 'pointer', fontSize: '0.775rem', padding: 0, transition: 'color 0.15s' }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = '#dc4a3d')}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = '#c0a0a0')}
                     >
                       Delete
                     </button>
@@ -173,11 +173,11 @@ export default function PeptideListPage() {
 
 const thStyle: React.CSSProperties = {
   padding: '0.6rem 0.9rem',
-  background: '#111318',
-  fontFamily: '"DM Sans", sans-serif',
+  background: '#f4f4f0',
+  fontFamily: '"Inter", sans-serif',
   fontWeight: 600,
   fontSize: '0.72rem',
-  color: '#4b5563',
+  color: '#9ca39a',
   textAlign: 'left',
   letterSpacing: '0.06em',
   textTransform: 'uppercase',
@@ -185,14 +185,14 @@ const thStyle: React.CSSProperties = {
 
 const tdStyle: React.CSSProperties = {
   padding: '0.75rem 0.9rem',
-  background: '#0d1117',
+  background: '#ffffff',
 };
 
 const newBtnStyle: React.CSSProperties = {
-  fontFamily: '"DM Sans", sans-serif',
-  background: '#0d3d38',
-  color: '#2dd4bf',
-  border: '1px solid #1d5a54',
+  fontFamily: '"Inter", sans-serif',
+  background: '#4a7a5a',
+  color: '#ffffff',
+  border: '1px solid transparent',
   padding: '0.4rem 1rem',
   borderRadius: '8px',
   textDecoration: 'none',

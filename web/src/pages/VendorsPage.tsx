@@ -3,15 +3,15 @@ export default function VendorsPage() {
     <>
       {/* ── Header ───────────────────────────────────────────────────── */}
       <div style={{
-        borderBottom: '1px solid #21262d',
+        borderBottom: '1px solid #e4e4de',
         marginBottom: '3rem',
         paddingBottom: '1.5rem',
       }}>
         <p style={{
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontSize: '0.72rem',
           letterSpacing: '0.2em',
-          color: '#2dd4bf',
+          color: '#4a7a5a',
           textTransform: 'uppercase',
           margin: '0 0 0.6rem',
         }}>
@@ -21,7 +21,7 @@ export default function VendorsPage() {
           fontFamily: '"Instrument Serif", serif',
           fontSize: 'clamp(2rem, 5vw, 3rem)',
           fontWeight: 400,
-          color: '#e6edf3',
+          color: '#111110',
           margin: '0 0 0.75rem',
           lineHeight: 1.1,
           letterSpacing: '-0.02em',
@@ -29,9 +29,9 @@ export default function VendorsPage() {
           Vendors
         </h1>
         <p style={{
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontSize: '0.9rem',
-          color: '#6b7280',
+          color: '#6b7266',
           margin: 0,
           maxWidth: '480px',
           lineHeight: 1.65,
@@ -48,16 +48,16 @@ export default function VendorsPage() {
         justifyContent: 'center',
         padding: '5rem 1.5rem',
         textAlign: 'center',
-        border: '1px dashed #21262d',
+        border: '1px dashed #d0d0c8',
         borderRadius: '16px',
-        background: '#0d1117',
+        background: '#f4f4f0',
       }}>
         <div style={{
           width: '48px',
           height: '48px',
           borderRadius: '12px',
-          background: '#111318',
-          border: '1px solid #21262d',
+          background: '#ffffff',
+          border: '1px solid #e4e4de',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -70,16 +70,16 @@ export default function VendorsPage() {
           fontFamily: '"Instrument Serif", serif',
           fontSize: '1.75rem',
           fontWeight: 400,
-          color: '#e6edf3',
+          color: '#111110',
           margin: '0 0 0.6rem',
           letterSpacing: '-0.01em',
         }}>
           Coming Soon
         </h2>
         <p style={{
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontSize: '0.875rem',
-          color: '#4b5563',
+          color: '#6b7266',
           margin: 0,
           maxWidth: '340px',
           lineHeight: 1.7,

@@ -57,18 +57,18 @@ export default function HomePage() {
 
       {/* ── Top nav ──────────────────────────────────────────────────── */}
       <nav style={{
-        borderBottom: '1px solid #21262d',
+        borderBottom: '1px solid #e4e4de',
         padding: '0 1.5rem',
         display: 'flex',
         alignItems: 'center',
         gap: '1.5rem',
         height: '52px',
-        background: '#0d1117',
+        background: '#ffffff',
       }}>
         <span style={{
           fontFamily: '"Instrument Serif", serif',
           fontSize: '1.2rem',
-          color: '#e6edf3',
+          color: '#111110',
           letterSpacing: '-0.01em',
           marginRight: 'auto',
         }}>
@@ -76,23 +76,23 @@ export default function HomePage() {
         </span>
         <NavLink
           to="/"
-          style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.825rem', color: '#2dd4bf', textDecoration: 'none' }}
+          style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.825rem', color: '#4a7a5a', textDecoration: 'none' }}
         >
           Compounds
         </NavLink>
         <NavLink
           to="/vendors"
-          style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.825rem', color: '#6b7280', textDecoration: 'none' }}
+          style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.825rem', color: '#6b7266', textDecoration: 'none' }}
         >
           Vendors
         </NavLink>
         <button
           onClick={() => setShowFinder(true)}
           style={{
-            fontFamily: '"DM Sans", sans-serif',
+            fontFamily: '"Inter", sans-serif',
             fontSize: '0.825rem',
-            color: '#0d1117',
-            background: '#2dd4bf',
+            color: '#ffffff',
+            background: '#4a7a5a',
             border: 'none',
             borderRadius: '6px',
             padding: '0.3rem 0.75rem',
@@ -106,17 +106,17 @@ export default function HomePage() {
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section style={{
-        background: 'radial-gradient(ellipse at 50% -10%, #0c2340 0%, #0d1117 62%)',
+        background: 'radial-gradient(ellipse at 50% -20%, #edf4ee 0%, #fafaf8 55%)',
         padding: 'clamp(3.5rem, 8vw, 6rem) 1.5rem clamp(3rem, 6vw, 5rem)',
         textAlign: 'center',
-        borderBottom: '1px solid #21262d',
+        borderBottom: '1px solid #e4e4de',
       }}>
         <div style={{ animation: 'fadeIn 0.7s ease both' }}>
           <p style={{
-            fontFamily: '"DM Sans", sans-serif',
+            fontFamily: '"Inter", sans-serif',
             fontSize: '0.75rem',
             letterSpacing: '0.22em',
-            color: '#2dd4bf',
+            color: '#4a7a5a',
             textTransform: 'uppercase',
             margin: '0 0 1rem',
           }}>
@@ -127,7 +127,7 @@ export default function HomePage() {
             fontFamily: '"Instrument Serif", serif',
             fontSize: 'clamp(3.25rem, 9vw, 6rem)',
             fontWeight: 400,
-            color: '#e6edf3',
+            color: '#111110',
             margin: '0 0 1rem',
             lineHeight: 1.0,
             letterSpacing: '-0.025em',
@@ -136,9 +136,9 @@ export default function HomePage() {
           </h1>
 
           <p style={{
-            fontFamily: '"DM Sans", sans-serif',
+            fontFamily: '"Inter", sans-serif',
             fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
-            color: '#6b7280',
+            color: '#6b7266',
             maxWidth: '500px',
             margin: '0 auto 1.25rem',
             lineHeight: 1.65,
@@ -152,8 +152,8 @@ export default function HomePage() {
             style={{
               background: 'none',
               border: 'none',
-              color: '#2dd4bf',
-              fontFamily: '"DM Sans", sans-serif',
+              color: '#4a7a5a',
+              fontFamily: '"Inter", sans-serif',
               fontSize: '0.875rem',
               cursor: 'pointer',
               padding: '0',
@@ -182,7 +182,7 @@ export default function HomePage() {
             left: '1.1rem',
             top: '50%',
             transform: 'translateY(-50%)',
-            color: '#4b5563',
+            color: '#9ca39a',
             fontSize: '1.05rem',
             pointerEvents: 'none',
             userSelect: 'none',
@@ -197,21 +197,21 @@ export default function HomePage() {
             style={{
               width: '100%',
               padding: '0.9rem 3.5rem 0.9rem 2.8rem',
-              background: '#161b22',
-              border: '1px solid #30363d',
+              background: '#ffffff',
+              border: '1px solid #d0d0c8',
               borderRadius: '14px',
-              color: '#e6edf3',
+              color: '#111110',
               fontSize: '0.975rem',
-              fontFamily: '"DM Sans", sans-serif',
+              fontFamily: '"Inter", sans-serif',
               outline: 'none',
               transition: 'border-color 0.2s, box-shadow 0.2s',
             }}
             onFocus={(e) => {
-              e.target.style.borderColor = '#2dd4bf';
-              e.target.style.boxShadow = '0 0 0 3px rgba(45,212,191,0.1)';
+              e.target.style.borderColor = '#4a7a5a';
+              e.target.style.boxShadow = '0 0 0 3px rgba(74,122,90,0.15)';
             }}
             onBlur={(e) => {
-              e.target.style.borderColor = '#30363d';
+              e.target.style.borderColor = '#d0d0c8';
               e.target.style.boxShadow = 'none';
             }}
           />
@@ -220,13 +220,13 @@ export default function HomePage() {
             right: '1rem',
             top: '50%',
             transform: 'translateY(-50%)',
-            background: '#21262d',
-            border: '1px solid #30363d',
+            background: '#f4f4f0',
+            border: '1px solid #e4e4de',
             borderRadius: '5px',
             padding: '0.15rem 0.4rem',
             fontSize: '0.65rem',
-            color: '#6b7280',
-            fontFamily: '"DM Sans", sans-serif',
+            color: '#9ca39a',
+            fontFamily: '"Inter", sans-serif',
             letterSpacing: '0.03em',
           }}>
             ⌘K
@@ -236,8 +236,8 @@ export default function HomePage() {
 
       {/* ── Stats bar ────────────────────────────────────────────────── */}
       <div style={{
-        background: '#111318',
-        borderBottom: '1px solid #21262d',
+        background: '#f4f4f0',
+        borderBottom: '1px solid #e4e4de',
         padding: '1rem 1.5rem',
         display: 'flex',
         justifyContent: 'center',
@@ -253,15 +253,15 @@ export default function HomePage() {
             <div style={{
               fontFamily: '"Instrument Serif", serif',
               fontSize: '1.5rem',
-              color: '#2dd4bf',
+              color: '#4a7a5a',
               lineHeight: 1,
             }}>
               {s.value}
             </div>
             <div style={{
-              fontFamily: '"DM Sans", sans-serif',
+              fontFamily: '"Inter", sans-serif',
               fontSize: '0.65rem',
-              color: '#4b5563',
+              color: '#9ca39a',
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
               marginTop: '0.2rem',
@@ -294,11 +294,11 @@ export default function HomePage() {
                   alignItems: 'center',
                   gap: '0.4rem',
                   padding: '0.35rem 0.85rem',
-                  background: active ? '#1a2a35' : 'transparent',
-                  border: `1px solid ${active ? '#2dd4bf' : '#21262d'}`,
+                  background: active ? '#edf4ee' : '#ffffff',
+                  border: `1px solid ${active ? '#4a7a5a' : '#e4e4de'}`,
                   borderRadius: '999px',
-                  color: active ? '#e6edf3' : '#6b7280',
-                  fontFamily: '"DM Sans", sans-serif',
+                  color: active ? '#2d5438' : '#6b7266',
+                  fontFamily: '"Inter", sans-serif',
                   fontSize: '0.8rem',
                   fontWeight: active ? 500 : 400,
                   cursor: 'pointer',
@@ -310,7 +310,7 @@ export default function HomePage() {
                   width: '6px',
                   height: '6px',
                   borderRadius: '50%',
-                  background: active ? cat.color : '#374151',
+                  background: active ? cat.color : '#d0d0c8',
                   flexShrink: 0,
                   transition: 'background 0.15s',
                 }} />
@@ -344,20 +344,20 @@ export default function HomePage() {
                 justifyContent: 'space-between',
                 marginBottom: '1.25rem',
                 paddingBottom: '0.75rem',
-                borderBottom: '1px solid #21262d',
+                borderBottom: '1px solid #e4e4de',
               }}>
                 <h2 style={{
                   fontFamily: '"Instrument Serif", serif',
                   fontSize: '1.4rem',
                   fontWeight: 400,
-                  color: '#e6edf3',
+                  color: '#111110',
                   margin: 0,
                   letterSpacing: '-0.01em',
                 }}>
                   {activeCategory === 'All' ? 'All Compounds' : activeCategory}
                 </h2>
                 {!loading && (
-                  <span style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.775rem', color: '#4b5563' }}>
+                  <span style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.775rem', color: '#9ca39a' }}>
                     {displayed.length} {displayed.length === 1 ? 'entry' : 'entries'}
                   </span>
                 )}
@@ -365,21 +365,21 @@ export default function HomePage() {
 
               {/* Loading state */}
               {loading && (
-                <div style={{ textAlign: 'center', padding: '5rem 0', fontFamily: '"DM Sans", sans-serif', color: '#4b5563', fontSize: '0.9rem', letterSpacing: '0.05em' }}>
+                <div style={{ textAlign: 'center', padding: '5rem 0', fontFamily: '"Inter", sans-serif', color: '#9ca39a', fontSize: '0.9rem', letterSpacing: '0.05em' }}>
                   Loading compounds…
                 </div>
               )}
 
               {/* Error state */}
               {error && (
-                <div style={{ fontFamily: '"DM Sans", sans-serif', color: '#f87171', background: '#1c1010', border: '1px solid #3f1515', borderRadius: '8px', padding: '1rem 1.25rem', fontSize: '0.875rem' }}>
+                <div style={{ fontFamily: '"Inter", sans-serif', color: '#dc4a3d', background: '#fef2f1', border: '1px solid rgba(220,74,61,0.2)', borderRadius: '8px', padding: '1rem 1.25rem', fontSize: '0.875rem' }}>
                   {error}
                 </div>
               )}
 
               {/* Empty state */}
               {!loading && !error && displayed.length === 0 && (
-                <div style={{ textAlign: 'center', padding: '5rem 0', fontFamily: '"DM Sans", sans-serif', color: '#4b5563' }}>
+                <div style={{ textAlign: 'center', padding: '5rem 0', fontFamily: '"Inter", sans-serif', color: '#9ca39a' }}>
                   {activeCategory === 'All' ? 'No published compounds yet.' : `No compounds in "${activeCategory}" yet.`}
                 </div>
               )}
@@ -399,28 +399,28 @@ export default function HomePage() {
 
       {/* ── Footer ───────────────────────────────────────────────────── */}
       <footer style={{
-        borderTop: '1px solid #21262d',
+        borderTop: '1px solid #e4e4de',
         padding: '2.5rem 1.5rem',
-        background: '#0a0d11',
+        background: '#f4f4f0',
         textAlign: 'center',
       }}>
         <p style={{
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontSize: '0.72rem',
-          color: '#374151',
+          color: '#9ca39a',
           maxWidth: '600px',
           margin: '0 auto 1rem',
           lineHeight: 1.75,
         }}>
-          <span style={{ color: '#4b5563', fontWeight: 500 }}>Research Disclaimer: </span>
+          <span style={{ color: '#6b7266', fontWeight: 500 }}>Research Disclaimer: </span>
           WikiPeps is intended for educational and informational purposes only. Nothing on this site
           constitutes medical advice. All peptide research should be conducted in compliance with
           applicable laws and regulations. Consult a qualified healthcare professional before use.
         </p>
         <p style={{
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontSize: '0.68rem',
-          color: '#1f2937',
+          color: '#c8c8c0',
           margin: 0,
         }}>
           © {new Date().getFullYear()} WikiPeps
@@ -453,8 +453,8 @@ function PeptideCard({
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
-          background: hovered ? '#161f2a' : '#111318',
-          border: `1px solid ${hovered ? 'rgba(45,212,191,0.3)' : '#1e2430'}`,
+          background: hovered ? '#f4f4f0' : '#ffffff',
+          border: `1px solid ${hovered ? 'rgba(74,122,90,0.3)' : '#e4e4de'}`,
           borderRadius: '14px',
           padding: '1.35rem',
           height: '100%',
@@ -463,7 +463,7 @@ function PeptideCard({
           cursor: 'pointer',
           transition: 'background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s',
           transform: hovered ? 'translateY(-3px)' : 'translateY(0)',
-          boxShadow: hovered ? '0 12px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(45,212,191,0.12)' : 'none',
+          boxShadow: hovered ? '0 8px 24px rgba(0,0,0,0.08), 0 0 0 1px rgba(74,122,90,0.12)' : '0 1px 3px rgba(0,0,0,0.05)',
           opacity: visible ? 1 : 0,
           animation: visible ? `fadeUp 0.45s ${Math.min(index * 0.055, 0.6)}s ease both` : 'none',
         }}
@@ -474,14 +474,14 @@ function PeptideCard({
             width: '7px',
             height: '7px',
             borderRadius: '50%',
-            background: hovered ? '#2dd4bf' : '#1d4a45',
+            background: hovered ? '#4a7a5a' : '#c8dbc8',
             display: 'block',
             transition: 'background 0.2s',
           }} />
           <span style={{
-            fontFamily: '"DM Sans", sans-serif',
+            fontFamily: '"Inter", sans-serif',
             fontSize: '0.65rem',
-            color: '#374151',
+            color: '#9ca39a',
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
           }}>
@@ -494,7 +494,7 @@ function PeptideCard({
           fontFamily: '"Instrument Serif", serif',
           fontSize: '1.35rem',
           fontWeight: 400,
-          color: '#e6edf3',
+          color: '#111110',
           margin: '0 0 0.55rem',
           lineHeight: 1.2,
           letterSpacing: '-0.01em',
@@ -504,22 +504,22 @@ function PeptideCard({
 
         {/* Snippet */}
         <p style={{
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontSize: '0.815rem',
-          color: '#6b7280',
+          color: '#6b7266',
           margin: '0 0 1.1rem',
           lineHeight: 1.65,
           flexGrow: 1,
           minHeight: snippet ? undefined : '2.4rem',
         }}>
-          {snippet ?? <span style={{ color: '#374151', fontStyle: 'italic' }}>No overview yet.</span>}
+          {snippet ?? <span style={{ color: '#c8c8c0', fontStyle: 'italic' }}>No overview yet.</span>}
         </p>
 
         {/* CTA */}
         <div style={{
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontSize: '0.775rem',
-          color: hovered ? '#2dd4bf' : '#374151',
+          color: hovered ? '#4a7a5a' : '#9ca39a',
           transition: 'color 0.2s',
           display: 'flex',
           alignItems: 'center',

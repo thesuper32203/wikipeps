@@ -20,10 +20,10 @@ export default function ResultsScreen({ results, primaryGoal, onClose }: Results
   if (top.length === 0) {
     return (
       <div style={{ textAlign: 'center', padding: '2rem 0' }}>
-        <p style={{ fontFamily: '"DM Sans", sans-serif', color: '#6b7280', marginBottom: '1.5rem' }}>
+        <p style={{ fontFamily: '"Inter", sans-serif', color: '#6b7266', marginBottom: '1.5rem' }}>
           No strong matches found. Browse all compounds to explore.
         </p>
-        <button onClick={onClose} style={ctaStyle('#2dd4bf')}>Browse All Compounds</button>
+        <button onClick={onClose} style={ctaStyle('#4a7a5a')}>Browse All Compounds</button>
       </div>
     );
   }
@@ -34,7 +34,7 @@ export default function ResultsScreen({ results, primaryGoal, onClose }: Results
     <div>
       <div style={{ marginBottom: '1.75rem' }}>
         <p style={{
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontSize: '0.75rem',
           letterSpacing: '0.18em',
           color: primaryColor,
@@ -47,7 +47,7 @@ export default function ResultsScreen({ results, primaryGoal, onClose }: Results
           fontFamily: '"Instrument Serif", serif',
           fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
           fontWeight: 400,
-          color: '#e6edf3',
+          color: '#111110',
           margin: 0,
           letterSpacing: '-0.02em',
           lineHeight: 1.2,
@@ -72,7 +72,7 @@ export default function ResultsScreen({ results, primaryGoal, onClose }: Results
               <div key="plus" style={{
                 display: 'flex',
                 alignItems: 'center',
-                color: '#374151',
+                color: '#9ca39a',
                 fontFamily: '"Instrument Serif", serif',
                 fontSize: '1.75rem',
                 flexShrink: 0,
@@ -87,17 +87,17 @@ export default function ResultsScreen({ results, primaryGoal, onClose }: Results
 
       {isStack && (
         <p style={{
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontSize: '0.82rem',
-          color: '#6b7280',
+          color: '#6b7266',
           margin: '0 0 1.75rem',
           lineHeight: 1.65,
-          background: '#111318',
-          border: '1px solid #21262d',
+          background: '#f4f4f0',
+          border: '1px solid #e4e4de',
           borderRadius: '10px',
           padding: '0.85rem 1rem',
         }}>
-          <span style={{ color: '#9ca3af' }}>Why this stack: </span>
+          <span style={{ color: '#9ca39a' }}>Why this stack: </span>
           {top[0].peptide.name} targets{' '}
           <span style={{ color: getCategoryColor(top[0].peptide.category) }}>
             {top[0].peptide.category ?? 'your primary goal'}
@@ -110,7 +110,7 @@ export default function ResultsScreen({ results, primaryGoal, onClose }: Results
       )}
 
       <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-        <button onClick={onClose} style={ctaStyle('#374151', true)}>
+        <button onClick={onClose} style={ctaStyle('#4a7a5a', true)}>
           Browse All Compounds
         </button>
       </div>
@@ -137,19 +137,20 @@ function ResultCard({ result, onClose }: { result: ScoredPeptide; onClose: () =>
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         style={{
-          background: hovered ? '#161f2a' : '#111318',
-          border: `1px solid ${hovered ? 'rgba(45,212,191,0.3)' : '#21262d'}`,
+          background: hovered ? '#f4f4f0' : '#ffffff',
+          border: `1px solid ${hovered ? 'rgba(74,122,90,0.3)' : '#e4e4de'}`,
           borderRadius: '14px',
           padding: '1.25rem',
           height: '100%',
           cursor: 'pointer',
           transition: 'all 0.2s ease',
           transform: hovered ? 'translateY(-2px)' : 'none',
+          boxShadow: hovered ? '0 8px 24px rgba(0,0,0,0.08)' : '0 1px 3px rgba(0,0,0,0.05)',
         }}
       >
         {result.peptide.category && (
           <span style={{
-            fontFamily: '"DM Sans", sans-serif',
+            fontFamily: '"Inter", sans-serif',
             fontSize: '0.65rem',
             color: catColor,
             letterSpacing: '0.1em',
@@ -164,25 +165,25 @@ function ResultCard({ result, onClose }: { result: ScoredPeptide; onClose: () =>
           fontFamily: '"Instrument Serif", serif',
           fontSize: '1.35rem',
           fontWeight: 400,
-          color: '#e6edf3',
+          color: '#111110',
           margin: '0 0 0.5rem',
           lineHeight: 1.2,
         }}>
           {result.peptide.name}
         </h3>
         <p style={{
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontSize: '0.8rem',
-          color: '#6b7280',
+          color: '#6b7266',
           margin: '0 0 1rem',
           lineHeight: 1.6,
         }}>
           {snippet}
         </p>
         <span style={{
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontSize: '0.775rem',
-          color: hovered ? '#2dd4bf' : '#374151',
+          color: hovered ? '#4a7a5a' : '#9ca39a',
           transition: 'color 0.2s',
         }}>
           View compound →
@@ -203,8 +204,8 @@ function ctaStyle(color: string, ghost = false): React.CSSProperties {
     border: `1px solid ${color}`,
     borderRadius: '8px',
     padding: '0.65rem 1.25rem',
-    color: ghost ? color : '#0d1117',
-    fontFamily: '"DM Sans", sans-serif',
+    color: ghost ? color : '#ffffff',
+    fontFamily: '"Inter", sans-serif',
     fontSize: '0.875rem',
     fontWeight: 500,
     cursor: 'pointer',

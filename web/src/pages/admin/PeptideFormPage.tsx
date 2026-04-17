@@ -131,23 +131,23 @@ export default function PeptideFormPage() {
   }
 
   if (loading) return (
-    <p style={{ fontFamily: '"DM Sans", sans-serif', color: '#4b5563' }}>Loading…</p>
+    <p style={{ fontFamily: '"Inter", sans-serif', color: '#9ca39a' }}>Loading…</p>
   );
 
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: '760px' }}>
       {/* Page header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h2 style={{ fontFamily: '"Instrument Serif", serif', fontSize: '1.5rem', fontWeight: 400, color: '#e6edf3', margin: 0, letterSpacing: '-0.01em' }}>
+        <h2 style={{ fontFamily: '"Instrument Serif", serif', fontSize: '1.5rem', fontWeight: 400, color: '#111110', margin: 0, letterSpacing: '-0.01em' }}>
           {isEdit ? 'Edit Peptide' : 'New Peptide'}
         </h2>
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontFamily: '"DM Sans", sans-serif', fontSize: '0.825rem', color: '#8b949e', cursor: 'pointer' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', fontFamily: '"Inter", sans-serif', fontSize: '0.825rem', color: '#6b7266', cursor: 'pointer' }}>
             <input
               type="checkbox"
               checked={isPublished}
               onChange={(e) => setIsPublished(e.target.checked)}
-              style={{ accentColor: '#2dd4bf', width: '14px', height: '14px' }}
+              style={{ accentColor: '#4a7a5a', width: '14px', height: '14px' }}
             />
             Published
           </label>
@@ -161,7 +161,7 @@ export default function PeptideFormPage() {
       </div>
 
       {error && (
-        <div style={{ fontFamily: '"DM Sans", sans-serif', color: '#f87171', background: '#1c1010', border: '1px solid #3f1515', borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1.5rem', fontSize: '0.85rem' }}>
+        <div style={{ fontFamily: '"Inter", sans-serif', color: '#dc4a3d', background: '#fef2f1', border: '1px solid rgba(220,74,61,0.2)', borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1.5rem', fontSize: '0.85rem' }}>
           {error}
         </div>
       )}
@@ -189,8 +189,8 @@ export default function PeptideFormPage() {
             onFocus={focusStyle}
             onBlur={blurStyle}
           />
-          <p style={{ margin: '0.25rem 0 0', fontFamily: '"DM Sans", sans-serif', fontSize: '0.72rem', color: '#374151' }}>
-            /peptides/<span style={{ color: '#6b7280' }}>{slug || '…'}</span>
+          <p style={{ margin: '0.25rem 0 0', fontFamily: '"Inter", sans-serif', fontSize: '0.72rem', color: '#9ca39a' }}>
+            /peptides/<span style={{ color: '#6b7266' }}>{slug || '…'}</span>
           </p>
         </Field>
         <Field label="Category">
@@ -248,8 +248,8 @@ export default function PeptideFormPage() {
 
       {/* Tags */}
       <Section title="Tags">
-        <p style={{ margin: '0 0 0.75rem', fontFamily: '"DM Sans", sans-serif', fontSize: '0.72rem', color: '#374151' }}>
-          Lowercase, underscored (e.g. <code style={{ color: '#6b7280' }}>fat_loss</code>, <code style={{ color: '#6b7280' }}>healing</code>). Used for search and category filtering.
+        <p style={{ margin: '0 0 0.75rem', fontFamily: '"Inter", sans-serif', fontSize: '0.72rem', color: '#9ca39a' }}>
+          Lowercase, underscored (e.g. <code style={{ color: '#6b7266' }}>fat_loss</code>, <code style={{ color: '#6b7266' }}>healing</code>). Used for search and category filtering.
         </p>
         {tags.map((tag, i) => (
           <div key={i} style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
@@ -322,7 +322,7 @@ export default function PeptideFormPage() {
       {/* Vendor links */}
       <Section title="Vendor Links">
         {vendorLinks.map((v, i) => (
-          <div key={i} style={{ border: '1px solid #21262d', borderRadius: '10px', padding: '1rem', marginBottom: '0.75rem', background: '#111318' }}>
+          <div key={i} style={{ border: '1px solid #e4e4de', borderRadius: '10px', padding: '1rem', marginBottom: '0.75rem', background: '#f4f4f0' }}>
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.75rem' }}>
               <button
                 type="button"
@@ -358,12 +358,12 @@ export default function PeptideFormPage() {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section style={{ marginBottom: '2rem', paddingBottom: '1.75rem', borderBottom: '1px solid #1a1f28' }}>
+    <section style={{ marginBottom: '2rem', paddingBottom: '1.75rem', borderBottom: '1px solid #e4e4de' }}>
       <h3 style={{
-        fontFamily: '"DM Sans", sans-serif',
+        fontFamily: '"Inter", sans-serif',
         fontSize: '0.68rem',
         fontWeight: 600,
-        color: '#4b5563',
+        color: '#9ca39a',
         textTransform: 'uppercase',
         letterSpacing: '0.1em',
         margin: '0 0 1rem',
@@ -380,10 +380,10 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
     <div style={{ marginBottom: '0.75rem' }}>
       <label style={{
         display: 'block',
-        fontFamily: '"DM Sans", sans-serif',
+        fontFamily: '"Inter", sans-serif',
         fontSize: '0.75rem',
         fontWeight: 500,
-        color: '#6b7280',
+        color: '#6b7266',
         marginBottom: '0.3rem',
       }}>
         {label}
@@ -395,33 +395,33 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 // Shared focus/blur handlers for inputs
 const focusStyle = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  e.target.style.borderColor = '#2dd4bf';
-  e.target.style.boxShadow = '0 0 0 3px rgba(45,212,191,0.08)';
+  e.target.style.borderColor = '#4a7a5a';
+  e.target.style.boxShadow = '0 0 0 3px rgba(74,122,90,0.15)';
 };
 const blurStyle = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  e.target.style.borderColor = '#30363d';
+  e.target.style.borderColor = '#d0d0c8';
   e.target.style.boxShadow = 'none';
 };
 
 const inputStyle: React.CSSProperties = {
   width: '100%',
   padding: '0.5rem 0.7rem',
-  background: '#161b22',
-  border: '1px solid #30363d',
+  background: '#fafaf8',
+  border: '1px solid #d0d0c8',
   borderRadius: '7px',
-  color: '#e6edf3',
+  color: '#111110',
   fontSize: '0.875rem',
-  fontFamily: '"DM Sans", sans-serif',
+  fontFamily: '"Inter", sans-serif',
   outline: 'none',
   boxSizing: 'border-box',
   transition: 'border-color 0.2s, box-shadow 0.2s',
 };
 
 const saveBtnStyle: React.CSSProperties = {
-  fontFamily: '"DM Sans", sans-serif',
-  background: '#0d3d38',
-  color: '#2dd4bf',
-  border: '1px solid #1d5a54',
+  fontFamily: '"Inter", sans-serif',
+  background: '#4a7a5a',
+  color: '#ffffff',
+  border: '1px solid transparent',
   padding: '0.4rem 1.25rem',
   borderRadius: '7px',
   cursor: 'pointer',
@@ -430,10 +430,10 @@ const saveBtnStyle: React.CSSProperties = {
 };
 
 const cancelBtnStyle: React.CSSProperties = {
-  fontFamily: '"DM Sans", sans-serif',
+  fontFamily: '"Inter", sans-serif',
   background: 'none',
-  border: '1px solid #21262d',
-  color: '#6b7280',
+  border: '1px solid #e4e4de',
+  color: '#6b7266',
   padding: '0.4rem 1rem',
   borderRadius: '7px',
   cursor: 'pointer',
@@ -441,10 +441,10 @@ const cancelBtnStyle: React.CSSProperties = {
 };
 
 const removeBtnStyle: React.CSSProperties = {
-  fontFamily: '"DM Sans", sans-serif',
+  fontFamily: '"Inter", sans-serif',
   background: 'none',
   border: 'none',
-  color: '#6b2020',
+  color: '#c0a0a0',
   cursor: 'pointer',
   fontSize: '0.85rem',
   padding: '0.2rem 0.4rem',
@@ -453,10 +453,10 @@ const removeBtnStyle: React.CSSProperties = {
 };
 
 const addBtnStyle: React.CSSProperties = {
-  fontFamily: '"DM Sans", sans-serif',
+  fontFamily: '"Inter", sans-serif',
   background: 'none',
-  border: '1px dashed #21262d',
-  color: '#4b5563',
+  border: '1px dashed #d0d0c8',
+  color: '#9ca39a',
   padding: '0.35rem 0.8rem',
   borderRadius: '7px',
   cursor: 'pointer',

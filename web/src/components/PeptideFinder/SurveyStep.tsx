@@ -35,7 +35,7 @@ export default function SurveyStep({
         fontFamily: '"Instrument Serif", serif',
         fontSize: 'clamp(1.4rem, 4vw, 2rem)',
         fontWeight: 400,
-        color: '#e6edf3',
+        color: '#111110',
         margin: '0 0 0.5rem',
         lineHeight: 1.2,
         letterSpacing: '-0.02em',
@@ -44,9 +44,9 @@ export default function SurveyStep({
       </h2>
       {subtitle && (
         <p style={{
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: '"Inter", sans-serif',
           fontSize: '0.85rem',
-          color: '#6b7280',
+          color: '#6b7266',
           margin: '0 0 1.75rem',
         }}>
           {subtitle}
@@ -95,12 +95,12 @@ function OptionCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: selected ? `${accent}18` : hovered ? '#161b22' : '#111318',
-        border: `1px solid ${selected ? accent : hovered ? '#30363d' : '#21262d'}`,
+        background: selected ? `${accent}18` : hovered ? '#f4f4f0' : '#fafaf8',
+        border: `1px solid ${selected ? accent : hovered ? '#d0d0c8' : '#e4e4de'}`,
         borderRadius: '12px',
         padding: '0.85rem 1rem',
-        color: selected ? '#e6edf3' : disabled ? '#374151' : hovered ? '#c9d1d9' : '#9ca3af',
-        fontFamily: '"DM Sans", sans-serif',
+        color: selected ? '#111110' : disabled ? '#d0d0c8' : hovered ? '#111110' : '#6b7266',
+        fontFamily: '"Inter", sans-serif',
         fontSize: '0.875rem',
         fontWeight: selected ? 500 : 400,
         cursor: disabled ? 'not-allowed' : 'pointer',
@@ -116,7 +116,7 @@ function OptionCard({
         width: '8px',
         height: '8px',
         borderRadius: '50%',
-        background: selected ? accent : '#374151',
+        background: selected ? accent : '#d0d0c8',
         flexShrink: 0,
         transition: 'background 0.15s',
       }} />

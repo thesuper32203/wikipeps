@@ -74,7 +74,7 @@ export default function PeptideFinderModal({ peptides, onClose }: PeptideFinderM
       style={{
         position: 'fixed',
         inset: 0,
-        background: 'rgba(0,0,0,0.75)',
+        background: 'rgba(15,20,15,0.6)',
         zIndex: 1000,
         display: 'flex',
         alignItems: 'center',
@@ -84,8 +84,8 @@ export default function PeptideFinderModal({ peptides, onClose }: PeptideFinderM
       }}
     >
       <div style={{
-        background: '#0d1117',
-        border: '1px solid #21262d',
+        background: '#ffffff',
+        border: '1px solid #e4e4de',
         borderRadius: '20px',
         width: '100%',
         maxWidth: '620px',
@@ -93,14 +93,15 @@ export default function PeptideFinderModal({ peptides, onClose }: PeptideFinderM
         overflowY: 'auto',
         padding: 'clamp(1.5rem, 4vw, 2.5rem)',
         position: 'relative',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.15)',
       }}>
         {/* Header row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
           <span style={{
-            fontFamily: '"DM Sans", sans-serif',
+            fontFamily: '"Inter", sans-serif',
             fontSize: '0.75rem',
             letterSpacing: '0.18em',
-            color: '#2dd4bf',
+            color: '#2d5438',
             textTransform: 'uppercase',
           }}>
             {finder.step === 'results' ? 'Your Results' : 'Peptide Finder'}
@@ -110,8 +111,8 @@ export default function PeptideFinderModal({ peptides, onClose }: PeptideFinderM
             style={{
               background: 'none',
               border: 'none',
-              color: '#4b5563',
-              fontFamily: '"DM Sans", sans-serif',
+              color: '#9ca39a',
+              fontFamily: '"Inter", sans-serif',
               fontSize: '0.8rem',
               cursor: 'pointer',
               padding: '0.25rem 0.5rem',
@@ -125,7 +126,7 @@ export default function PeptideFinderModal({ peptides, onClose }: PeptideFinderM
         {finder.step !== 'results' && (
           <div style={{
             height: '3px',
-            background: '#21262d',
+            background: '#e4e4de',
             borderRadius: '99px',
             marginBottom: '2rem',
             overflow: 'hidden',
@@ -133,7 +134,7 @@ export default function PeptideFinderModal({ peptides, onClose }: PeptideFinderM
             <div style={{
               height: '100%',
               width: `${progress}%`,
-              background: 'linear-gradient(90deg, #2dd4bf, #60a5fa)',
+              background: 'linear-gradient(90deg, #4a7a5a, #7ab88a)',
               borderRadius: '99px',
               transition: 'width 0.3s ease',
             }} />
@@ -203,18 +204,18 @@ export default function PeptideFinderModal({ peptides, onClose }: PeptideFinderM
             alignItems: 'center',
             marginTop: '2rem',
             paddingTop: '1.25rem',
-            borderTop: '1px solid #21262d',
+            borderTop: '1px solid #e4e4de',
           }}>
             <button
               onClick={finder.back}
               disabled={finder.step === 1}
               style={{
                 background: 'none',
-                border: '1px solid #21262d',
+                border: '1px solid #e4e4de',
                 borderRadius: '8px',
                 padding: '0.6rem 1.1rem',
-                color: finder.step === 1 ? '#1f2937' : '#6b7280',
-                fontFamily: '"DM Sans", sans-serif',
+                color: finder.step === 1 ? '#d0d0c8' : '#6b7266',
+                fontFamily: '"Inter", sans-serif',
                 fontSize: '0.875rem',
                 cursor: finder.step === 1 ? 'not-allowed' : 'pointer',
               }}
@@ -222,7 +223,7 @@ export default function PeptideFinderModal({ peptides, onClose }: PeptideFinderM
               ← Back
             </button>
 
-            <span style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.75rem', color: '#374151' }}>
+            <span style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.75rem', color: '#9ca39a' }}>
               {currentStep} / {totalSteps}
             </span>
 
@@ -230,12 +231,12 @@ export default function PeptideFinderModal({ peptides, onClose }: PeptideFinderM
               onClick={finder.next}
               disabled={!canAdvance}
               style={{
-                background: canAdvance ? '#2dd4bf' : '#1a2a35',
-                border: `1px solid ${canAdvance ? '#2dd4bf' : '#1e3a3a'}`,
+                background: canAdvance ? '#4a7a5a' : '#f4f4f0',
+                border: `1px solid ${canAdvance ? '#4a7a5a' : '#e4e4de'}`,
                 borderRadius: '8px',
                 padding: '0.6rem 1.25rem',
-                color: canAdvance ? '#0d1117' : '#374151',
-                fontFamily: '"DM Sans", sans-serif',
+                color: canAdvance ? '#ffffff' : '#d0d0c8',
+                fontFamily: '"Inter", sans-serif',
                 fontSize: '0.875rem',
                 fontWeight: 500,
                 cursor: canAdvance ? 'pointer' : 'not-allowed',

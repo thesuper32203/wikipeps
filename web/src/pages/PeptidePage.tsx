@@ -24,16 +24,16 @@ export default function PeptidePage() {
   }, [slug]);
 
   if (loading) return (
-    <p style={{ fontFamily: '"DM Sans", sans-serif', color: '#4b5563' }}>Loading…</p>
+    <p style={{ fontFamily: '"Inter", sans-serif', color: '#9ca39a' }}>Loading…</p>
   );
 
   if (error) return (
-    <p style={{ fontFamily: '"DM Sans", sans-serif', color: '#f87171' }}>{error}</p>
+    <p style={{ fontFamily: '"Inter", sans-serif', color: '#dc4a3d' }}>{error}</p>
   );
 
   if (!peptide) return (
     <>
-      <p style={{ fontFamily: '"DM Sans", sans-serif', color: '#8b949e' }}>Peptide not found.</p>
+      <p style={{ fontFamily: '"Inter", sans-serif', color: '#9ca39a' }}>Peptide not found.</p>
       <Link to="/">← Back to index</Link>
     </>
   );
@@ -42,7 +42,7 @@ export default function PeptidePage() {
     <article>
       <Link
         to="/"
-        style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.825rem', color: '#4b5563', textDecoration: 'none' }}
+        style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.825rem', color: '#9ca39a', textDecoration: 'none' }}
       >
         ← All peptides
       </Link>
@@ -51,7 +51,7 @@ export default function PeptidePage() {
         fontFamily: '"Instrument Serif", serif',
         fontSize: 'clamp(2rem, 5vw, 2.75rem)',
         fontWeight: 400,
-        color: '#e6edf3',
+        color: '#111110',
         margin: '0.6rem 0 0.4rem',
         lineHeight: 1.1,
         letterSpacing: '-0.02em',
@@ -60,7 +60,7 @@ export default function PeptidePage() {
       </h1>
 
       {peptide.peptide_aliases.length > 0 && (
-        <p style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.875rem', color: '#6b7280', fontStyle: 'italic', margin: '0 0 1.5rem' }}>
+        <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.875rem', color: '#6b7266', fontStyle: 'italic', margin: '0 0 1.5rem' }}>
           Also known as: {peptide.peptide_aliases.map((a) => a.alias).join(', ')}
         </p>
       )}
@@ -68,7 +68,7 @@ export default function PeptidePage() {
       {peptide.overview && (
         <section style={{ marginTop: '1.5rem' }}>
           <SectionHeading>Overview</SectionHeading>
-          <p style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.95rem', color: '#8b949e', whiteSpace: 'pre-wrap', lineHeight: 1.75 }}>
+          <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.95rem', color: '#6b7266', whiteSpace: 'pre-wrap', lineHeight: 1.75 }}>
             {peptide.overview}
           </p>
         </section>
@@ -84,7 +84,7 @@ export default function PeptidePage() {
                   href={link.research_link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.875rem' }}
+                  style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.875rem' }}
                 >
                   {link.title}
                 </a>
@@ -101,16 +101,17 @@ export default function PeptidePage() {
             {peptide.vendor_links.map((v) => (
               <div key={v.id} style={{
                 padding: '0.9rem 1.1rem',
-                border: '1px solid #21262d',
+                border: '1px solid #e4e4de',
                 borderRadius: '10px',
-                background: '#111318',
+                background: '#ffffff',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.07)',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.75rem',
                 flexWrap: 'wrap',
               }}>
                 {v.vendor_name && (
-                  <strong style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.9rem', color: '#e6edf3' }}>
+                  <strong style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.9rem', color: '#111110' }}>
                     {v.vendor_name}
                   </strong>
                 )}
@@ -120,8 +121,8 @@ export default function PeptidePage() {
                   </a>
                 )}
                 {v.referral_code && (
-                  <span style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.8rem', color: '#6b7280' }}>
-                    Code: <code style={{ background: '#21262d', padding: '0.1rem 0.4rem', borderRadius: '4px', color: '#2dd4bf' }}>{v.referral_code}</code>
+                  <span style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.8rem', color: '#6b7266' }}>
+                    Code: <code style={{ background: '#edf4ee', padding: '0.1rem 0.4rem', borderRadius: '4px', color: '#2d5438' }}>{v.referral_code}</code>
                   </span>
                 )}
               </div>
@@ -130,8 +131,8 @@ export default function PeptidePage() {
         </section>
       )}
 
-      <footer style={{ marginTop: '3rem', paddingTop: '1.25rem', borderTop: '1px solid #21262d' }}>
-        <p style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.75rem', color: '#374151', margin: 0 }}>
+      <footer style={{ marginTop: '3rem', paddingTop: '1.25rem', borderTop: '1px solid #e4e4de' }}>
+        <p style={{ fontFamily: '"Inter", sans-serif', fontSize: '0.75rem', color: '#9ca39a', margin: 0 }}>
           Last updated: {new Date(peptide.updated_at).toLocaleDateString()}
         </p>
       </footer>
@@ -145,7 +146,7 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
       fontFamily: '"Instrument Serif", serif',
       fontSize: '1.2rem',
       fontWeight: 400,
-      color: '#e6edf3',
+      color: '#111110',
       margin: '0 0 0.75rem',
       letterSpacing: '-0.01em',
     }}>

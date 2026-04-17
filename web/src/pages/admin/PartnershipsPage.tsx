@@ -31,20 +31,18 @@ export default function PartnershipsPage() {
   const [editForm, setEditForm] = useState(empty());
   const [saving, setSaving] = useState(false);
 
-  function load() {
+  async function load() {
     setLoading(true);
-    supabase
+    const { data, error: err } = await supabase
       .from('partnerships')
       .select('*')
-      .order('created_at', { ascending: false })
-      .then(({ data, error: err }) => {
-        if (err) setError(err.message);
-        else setPartnerships(data ?? []);
-      })
-      .finally(() => setLoading(false));
+      .order('created_at', { ascending: false });
+    if (err) setError(err.message);
+    else setPartnerships(data ?? []);
+    setLoading(false);
   }
 
-  useEffect(load, []);
+  useEffect(() => { load(); }, []);
 
   async function handleAdd() {
     if (!addForm.vendor_name.trim()) return;
